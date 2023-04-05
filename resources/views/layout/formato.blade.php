@@ -12,7 +12,7 @@
 
 <body class="bg-gray-900">
     <div class="flex flex-col cursor-no-drop">
-        <h3 class="text-blue-600 ">Estas en pyramid</h3>
+        <h3 class="text-blue-600 ">Estas en pyramid3d</h3>
         <a href="{{ route('registro') }}">registro</a>
         <a href="{{ route('inicioSesion') }}">iniciar sesion</a>
         <a href="{{ route('logOut') }}">Cerrar Sesion</a>
