@@ -44,9 +44,9 @@
             </div>
 
             @if (session('error'))
-            <div class="alert alert-danger">
+            <span class="text-danger">
                 {{ session('error') }}
-            </div>
+            </span>
             @endif
         </form>
     </div>

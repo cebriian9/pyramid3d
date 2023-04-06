@@ -19,7 +19,7 @@ Route::get('/', IndexController::class)->name('index');
 
 Route::get('/privada', function () {
     return view('privada');
-})->middleware('auth')->name('privada');
+})->middleware('auth')->name('imprimir');
 
 //ir a pagina de registrarse/iniciosesion
 Route::get('sesiones/registro',[sesionController::class,'registroIndex'])->name('registro')->middleware('guest');

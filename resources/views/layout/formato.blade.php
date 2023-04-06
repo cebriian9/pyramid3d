@@ -17,11 +17,11 @@
         <a href="{{ route('registro') }}">registro</a>
         <a href="{{ route('inicioSesion') }}">iniciar sesion</a>
         <a href="{{ route('logOut') }}">Cerrar Sesion</a>
-        <a href="{{ route('privada') }}">privativo</a>
+        <a href="{{ route('imprimir') }}">privativo</a>
         <p>hola: @auth {{Auth::user()->usuario}} @else invitado @endauth </p>
     </div>
     <!--menu-->
-    <nav class="bg-primario text-claro w-full top-0 border">
+    <nav class="bg-primario text-claro w-full top-0 ">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="{{route('index')}}" class="flex items-center">
                 <img src="{{URL::asset('imagenes/logo.png')}}" class="w-7 sm:w-14 mr-3" alt="Logo">
@@ -30,7 +30,7 @@
             <div class="flex md:order-2">
                 @auth
                 <span class="flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-user"></i> 
+                    <i class="fa-solid fa-user"></i>
                     {{Auth::user()->usuario}}
                 </span>
                 @else
@@ -67,21 +67,25 @@
                 <ul
                     class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                     <li>
-                        <a href="#"
+                        <a href="{{route('index')}}"
                             class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
-                            aria-current="page">Home</a>
+                            aria-current="page">Inicio</a>
                     </li>
-                    
+                    <li>
+                        <a href="{{route('imprimir')}}"
+                            class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
+                            aria-current="page">Personalizacion</a>
+                    </li>
+
                 </ul>
             </div>
         </div>
     </nav>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>aaaaaaa <br> sssssssss <br> aaaaaaaaaaaa <br> aaaaaaaaaaa
     <!--//menu-->
     @yield('contenido')
 
     <nav class="text-claro fixed left-0 right-0 mx-auto text-center bottom-11 z-50">
-        <a href="@auth {{route('privada')}} @else {{route('registro')}} @endauth" class="block sm:hidden">
+        <a href="@auth {{route('imprimir')}} @else {{route('registro')}} @endauth" class="block sm:hidden">
             <button type="button"
                 class="text-white bg-secundario-50 hover:bg-secundario-100  font-semibold rounded-lg px-28  py-2  md:mr-0">
                 Comenzar
