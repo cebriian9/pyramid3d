@@ -9,6 +9,7 @@
     @vite('resources/css/app.css')
     <link rel="shortcut icon" href="{{ URL::asset('imagenes/logo.png') }}" type="image/x-icon">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/flowbite.min.js"></script>
+    
 
 </head>
 
@@ -19,6 +20,7 @@
         <a href="{{ route('inicioSesion') }}">iniciar sesion</a>
         <a href="{{ route('logOut') }}">Cerrar Sesion</a>
         <a href="{{ route('impresion') }}">privativo</a>
+        <a href="{{route('pedidos')}}">adminPedidos</a>
         <p>hola: @auth {{ Auth::user()->usuario }}
             @else
             invitado @endauth </p>
@@ -129,15 +131,7 @@
 
     <!--footer-->
 
-    <!--boton flotante-->
-    <nav class="text-claro fixed left-0 right-0 mx-auto text-center bottom-11 z-50">
-        <a href="@auth {{ route('impresion') }} @else {{ route('registro') }} @endauth" class="block sm:hidden">
-            <button type="button"
-                class="text-white bg-secundario-50 hover:bg-secundario-100  font-semibold rounded-lg px-28  py-2  md:mr-0">
-                Comenzar
-            </button>
-        </a>
-    </nav>
+    
 </body>
 
 </html>

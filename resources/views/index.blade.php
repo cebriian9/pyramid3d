@@ -172,4 +172,14 @@
 
 </section>
 
+<!--boton flotante-->
+<nav class="text-claro fixed left-0 right-0 mx-auto text-center bottom-11 z-50">
+    <a href="@auth {{ route('impresion') }} @else {{ route('registro') }} @endauth" class="block sm:hidden">
+        <button type="button"
+            class="text-claro bg-secundario-50 hover:bg-secundario-100  font-semibold rounded-lg px-28  py-2  md:mr-0">
+            Comenzar
+        </button>
+    </a>
+</nav>
+
 @endsection
