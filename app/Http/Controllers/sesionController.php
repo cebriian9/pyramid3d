@@ -17,6 +17,11 @@ class sesionController extends Controller
 
     public function registroCreate(Request $request)
     {
+        $customAttributes = [
+            'password' => 'contraseña',
+            'password2'=>'confirmar contraseña',
+        ];
+
         $request->validate([
             'usuario' => 'required|min:3|max:25|unique:usuarios,usuario',
             'email' => 'required|unique:usuarios,email|email',

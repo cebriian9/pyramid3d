@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\adminController;
+use App\Http\Controllers\crearPedidosControlle;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\sesionController;
 use Illuminate\Support\Facades\Route;
@@ -17,13 +19,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', IndexController::class)->name('index');
 
-Route::get('/privada', function () {
-    return view('privada');
-})->middleware('auth')->name('privada');
+//admins
+Route::get('admin/pedidos',[adminController::class,'adminIndex'])->name('pedidos');
 
 //ir a pagina de registrarse/iniciosesion
 Route::get('sesiones/registro',[sesionController::class,'registroIndex'])->name('registro')->middleware('guest');
 Route::get('sesiones/inicioSesion',[sesionController::class,'inicioSesionIndex'])->name('inicioSesion')->middleware('guest');
+Route::get('/impresion',[crearPedidosControlle::class,'impresionIndex'])->name('impresion')->middleware('auth');
+
+//crear pedido
+Route::post('/impresion',[crearPedidosControlle::class,'crearImpresion'])->name('crearImpresion')->middleware('auth');
 
 //registrarse
 Route::post('registro/registrarse',[sesionController::class,'registroCreate'])->name('registrarse');
