@@ -8,12 +8,13 @@
     <title>@yield('tittle')</title>
     @vite('resources/css/app.css')
     <link rel="shortcut icon" href="{{ URL::asset('imagenes/logo.png') }}" type="image/x-icon">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/flowbite.min.js"></script>
 
 </head>
 
 <body>
     <div>
-        <h3 class="text-blue-600 ">Estas en pyramid3d test</h3>
+        <h3 class=" ">Estas en pyramid3d test</h3>
         <a href="{{ route('registro') }}">registro</a>
         <a href="{{ route('inicioSesion') }}">iniciar sesion</a>
         <a href="{{ route('logOut') }}">Cerrar Sesion</a>
@@ -31,10 +32,13 @@
             </a>
             <div class="flex md:order-2">
                 @auth
-                <span class="flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-user"></i>
-                    {{ Auth::user()->usuario }}
-                </span>
+                <div class="flex flex-col">
+                    <span class="flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-user"></i>
+                        {{ Auth::user()->usuario }}
+                    </span>
+                    <span><a href="{{ route('logOut') }}" class="text-info-100">Cerrar Sesion</a></span>
+                </div>
                 @else
                 <nav class="gap-3 flex">
                     <a href="{{ route('inicioSesion') }}">
@@ -54,9 +58,9 @@
                 @endauth
 
                 <button data-collapse-toggle="navbar-sticky" type="button"
-                    class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                    class="inline-flex items-center p-2 text-sm  rounded-lg md:hidden focus:outline-none focus:ring-2 "
                     aria-controls="navbar-sticky" aria-expanded="false">
-                    <span class="sr-only">Open main menu</span>
+                    <span class="sr-only">Abrir menu</span>
                     <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
@@ -67,16 +71,16 @@
             </div>
             <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
                 <ul
-                    class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                    class="flex flex-col p-4 md:p-0 mt-4 font-medium border  rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white ">
                     <li>
                         <a href="{{ route('index') }}"
-                            class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
+                            class="block py-2 pl-3 pr-4 text-white "
                             aria-current="page">Inicio</a>
                     </li>
                     <li>
                         <!-- no para admins cambiar para produ-->
                         <a href="{{ route('impresion') }}"
-                            class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
+                            class="block py-2 pl-3 pr-4 text-white "
                             aria-current="page">Personalizacion</a>
                     </li>
 
@@ -95,7 +99,7 @@
 
     <!--footer-->
 
-    <footer class="bg-secundario-gray-900 text-claro rounded-t-lg pb-28 sm:pb-0">
+    <footer class="bg-gray-900 text-claro rounded-t-lg pb-28 sm:pb-0">
         <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
             <div class="sm:flex sm:items-center sm:justify-between">
                 <a href="{{ route('index') }}" class="flex items-center">
@@ -103,7 +107,7 @@
                     <span class="self-center text-2xl font-semibold ">Pyramid3D</span>
                 </a>
                 <ul
-                    class="flex flex-wrap items-center mb-6 text-lg font-medium text-gray-500 sm:mb-0 ">
+                    class="flex flex-wrap items-center mb-6 text-lg font-medium  sm:mb-0 ">
                     <li>
                         <a href="#" class="mr-4 hover:underline md:mr-6 ">About</a>
                     </li>
@@ -119,7 +123,7 @@
                 </ul>
             </div>
             <hr class="my-6 border-gray-200 sm:mx-auto lg:my-8" />
-            <span class="block text-sm text-gray-500 sm:text-center ">© 2023 Pyramid3D™. Todos los derechos reservados.</span>
+            <span class="block text-sm  sm:text-center ">© 2023 Pyramid3D™. Todos los derechos reservados.</span>
         </div>
     </footer>
 
