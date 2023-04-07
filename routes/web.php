@@ -17,9 +17,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', IndexController::class)->name('index');
 
-Route::get('/privada', function () {
-    return view('privada');
-})->middleware('auth')->name('imprimir');
+Route::get('/impresion', function () {
+    return view('impresion');
+})->middleware('auth')->name('impresion');
 
 //ir a pagina de registrarse/iniciosesion
 Route::get('sesiones/registro',[sesionController::class,'registroIndex'])->name('registro')->middleware('guest');
