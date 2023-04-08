@@ -21,6 +21,7 @@ Route::get('/', IndexController::class)->name('index');
 
 //admins
 Route::get('admin/pedidos',[adminController::class,'adminIndex'])->name('pedidos');
+Route::get('admin/pedidos/download/{id}',[adminController::class,'downloadFile'])->name('descarga');
 
 //ir a pagina de registrarse/iniciosesion
 Route::get('sesiones/registro',[sesionController::class,'registroIndex'])->name('registro')->middleware('guest');
