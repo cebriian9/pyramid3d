@@ -23,6 +23,7 @@
         </div>
 
         <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+            <!-- texto
             <div>
                 <p class="text-sm text-gray-700 leading-5">
                     {!! __('Showing') !!}
@@ -38,7 +39,7 @@
                     {!! __('results') !!}
                 </p>
             </div>
-
+        -->
             <div>
                 <span class="relative z-0 inline-flex shadow-sm rounded-md">
                     {{-- Previous Page Link --}}
