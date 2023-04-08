@@ -49,8 +49,11 @@ class crearPedidosControlle extends Controller
                 'pathArchivo'
                 */
             $file = $request->file('stlFile');
-            $filePath = $request->file('stlFile')->storeAs('stlFile', $file->getClientOriginalName());
-
+            
+            $nombreArchivo=time()."-".$file->getClientOriginalName();
+            //$filePath = $request->file('stlFile')->storeAs('public', $nombreArchivo);
+            $pathArchivo = $request->file('stlFile')->storeAs('public',$nombreArchivo);
+            
 
             $pedido->id_user = Auth::user()->id;
             $pedido->material = $request->material;
@@ -58,12 +61,11 @@ class crearPedidosControlle extends Controller
             $pedido->calidad = $request->calidad;
             $pedido->tamano = $request->tamano;
 
-            $pedido->nombreArchivo = $file->getClientOriginalName();
-            $pedido->pathArchivo = $filePath;
+            $pedido->nombreArchivo = $nombreArchivo;
+            $pedido->pathArchivo = $pathArchivo;
             $pedido->hecho = 0;
 
-            //return $pedido->pathArchivo;
-            //$pedido=pedido::create([$request->all()]);
+            
 
             //a la base de datos y para casa
             $pedido->save();
@@ -72,4 +74,6 @@ class crearPedidosControlle extends Controller
             return redirect()->back()->withErrors(['stlFile' => 'El archivo tiene que ser .stl']);
         }
     }
+
+    
 }
