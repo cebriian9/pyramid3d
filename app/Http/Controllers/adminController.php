@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\pedidos;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -11,6 +12,7 @@ class adminController extends Controller
     public function adminIndex()
     {
         $pedidos = pedidos::paginate(10);
+        
         return view('admin/pedidos', compact('pedidos'));
     }
 
