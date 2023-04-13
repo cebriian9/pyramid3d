@@ -8,14 +8,14 @@
     <form action="{{route('crearImpresion')}}" method="post" enctype="multipart/form-data" class="">
         @csrf
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
-            <div class="col-span-2  ">
+            <div class="col-span-2 ">
                 <span class="text-2xl font-semibold">
                     <h1>Sube tus diseños </h1>
                 </span>
 
                 <div id="drag-drop" class="flex items-center justify-center ">
                     <label for="dropzone-file"
-                        class="flex flex-col items-center justify-center w-full h-64 border-2 border-primario border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-secundario-gray-200">
+                        class=" flex flex-col items-center justify-center w-full h-96 border-2 border-primario border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-secundario-gray-200">
                         <div class="flex flex-col items-center justify-center pt-5 pb-6">
                             <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none"
                                 stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -23,10 +23,13 @@
                                     d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
                                 </path>
                             </svg>
-                            <p class="text-center mb-2 m-3"><span class="font-semibold">Click para subir upload</span>
-                                or
-                                arrastra tu archivo</p>
-                            <p class=" ">Solo archivos .stl</p>
+                            <p class="text-center mb-2 m-3">
+                                <span class="font-semibold">
+                                    Click para subir upload
+                                </span>
+                                o arrastra tu archivo
+                            </p>
+                            <p class=" ">*Solo archivos .stl</p>
                         </div>
                         <input id="dropzone-file" name="stlFile" type="file" accept=".stl" class="hidden sm:block" required/>
                     </label>
@@ -36,9 +39,9 @@
                 @enderror
             </div>
 
+
+            <!--form lateral-->
             <div class="w-full sm:w-3/4 flex flex-col gap-6">
-
-
                 <div>
                     <label for="material" class="block text-2xl font-semibold ">Selecciona el material:</label>
                     <select name="material" id="material"

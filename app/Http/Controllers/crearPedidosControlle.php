@@ -51,7 +51,6 @@ class crearPedidosControlle extends Controller
             $file = $request->file('stlFile');
             
             $nombreArchivo=time()."-".$file->getClientOriginalName();
-            //$filePath = $request->file('stlFile')->storeAs('public', $nombreArchivo);
             $pathArchivo = $request->file('stlFile')->storeAs('public',$nombreArchivo);
             
 

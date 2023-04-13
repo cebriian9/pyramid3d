@@ -35,16 +35,18 @@
             <div class="flex md:order-2">
                 @auth
                     <div class="flex flex-col">
-                        <span class="flex items-center justify-center gap-2">
-                            
-                            @if (Auth::user()->admin)
-                                <i class="fa-solid fa-user-shield"></i>
-                            @else
-                                <i class="fa-solid fa-user"></i>
-                            @endif
+                        <a href="{{ route('cuenta') }}">
+                            <span class="flex items-center justify-center gap-2">
 
-                            {{ Auth::user()->usuario }}
-                        </span>
+                                @if (Auth::user()->admin)
+                                    <i class="fa-solid fa-user-shield"></i>
+                                @else
+                                    <i class="fa-solid fa-user"></i>
+                                @endif
+
+                                {{ Auth::user()->usuario }}
+                            </span>
+                        </a>
                         <span><a href="{{ route('logOut') }}" class="text-info-100">Cerrar Sesion</a></span>
                     </div>
                 @else
@@ -82,17 +84,23 @@
                     class="flex flex-col p-4 md:p-0 mt-4 font-medium border  rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white ">
                     <li>
                         <a href="{{ route('index') }}" class="block py-2 pl-3 pr-4 text-white "
-                            aria-current="page">Inicio</a>
+                            aria-current="Inicio">Inicio</a>
                     </li>
                     <li>
                         <!-- no para admins cambiar para produ-->
                         <a href="{{ route('impresion') }}" class="block py-2 pl-3 pr-4 text-white "
-                            aria-current="page">Personalizacion</a>
+                            aria-current="Personalizacion">Personalizacion</a>
                     </li>
 
                     @auth
+                        <a href="{{ route('cuenta') }}" class="block py-2 pl-3 pr-4 text-white "
+                            aria-current="Cuenta">Cuenta</a>
+                    @endauth
+
+                    @auth
                         @if (Auth::user()->admin)
-                            <p>eres admin</p>
+                        <a href="{{ route('pedidos') }}" class="block py-2 pl-3 pr-4 text-white "
+                        aria-current="pedidos"><i class="fa-solid fa-user-shield mr-3"></i>Pedidos</a>
                         @endif
                     @endauth
 

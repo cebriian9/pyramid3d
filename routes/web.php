@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\adminController;
 use App\Http\Controllers\crearPedidosControlle;
+use App\Http\Controllers\cuentaController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\sesionController;
 use Illuminate\Support\Facades\Route;
@@ -20,8 +21,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', IndexController::class)->name('index');
 
 //admins
-Route::get('admin/pedidos',[adminController::class,'adminIndex'])->name('pedidos');
-Route::get('admin/pedidos/download/{id}',[adminController::class,'downloadFile'])->name('descarga');
+Route::get('admin/pedidos',[adminController::class,'adminIndex'])->name('pedidos')->middleware('auth');//que no entre cualquira
+Route::get('admin/pedidos/download/{id}',[adminController::class,'downloadFile'])->name('descarga')->middleware('auth');
+Route::post('admin/pedidos/update', [adminController::class,'updatePedido'])->name('updatePedido');
+
+//cuenta
+Route::get('cuenta', [cuentaController::class,'cuentaIndex'])->name('cuenta');
 
 //ir a pagina de registrarse/iniciosesion
 Route::get('sesiones/registro',[sesionController::class,'registroIndex'])->name('registro')->middleware('guest');
