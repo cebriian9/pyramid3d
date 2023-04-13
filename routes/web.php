@@ -21,8 +21,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', IndexController::class)->name('index');
 
 //admins
-Route::get('admin/pedidos',[adminController::class,'adminIndex'])->name('pedidos');
-Route::get('admin/pedidos/download/{id}',[adminController::class,'downloadFile'])->name('descarga');
+Route::get('admin/pedidos',[adminController::class,'adminIndex'])->name('pedidos')->middleware('auth');//que no entre cualquira
+Route::get('admin/pedidos/download/{id}',[adminController::class,'downloadFile'])->name('descarga')->middleware('auth');
 
 //cuenta
 Route::get('cuenta', [cuentaController::class,'cuentaIndex'])->name('cuenta');

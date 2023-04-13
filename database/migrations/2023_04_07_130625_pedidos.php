@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('pedidos', function (Blueprint $table) {
             $table->id();
-            $table->string('id_user');
+            $table->unsignedBigInteger('id_user');
             $table->string('material');
             $table->string('relleno');
             $table->string('calidad');
@@ -24,6 +24,11 @@ return new class extends Migration
             $table->string('pathArchivo');
             $table->boolean('hecho');
             $table->timestamps();
+
+            $table->foreign('id_user')
+                ->references('id')
+                ->on('usuarios')
+                ->onDelete('cascade');
         });
     }
 

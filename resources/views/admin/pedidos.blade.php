@@ -54,7 +54,7 @@
                     {{ $pedido->id }}
                 </th>
                 <td class="px-6 py-4">
-                    {{ $pedido->id_user;}}
+                    {{ $pedido->usuario;}}
                     
                 </td>
                 <td class="px-6 py-4">
