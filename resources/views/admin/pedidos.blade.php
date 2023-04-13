@@ -24,7 +24,7 @@
                 <th scope="col" class="px-6 py-3">
                     ID
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" class=" px-6 py-3 ">
                     Usuario
                 </th>
                 <th scope="col" class="px-6 py-3">
