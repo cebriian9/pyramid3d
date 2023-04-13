@@ -3,6 +3,15 @@
 @section('tittle', 'AdminPedidos')
 
 @section('contenido')
+<style>
+    .boton-giratorio {
+        transition: transform 0.5s ease-in-out;
+    }
+
+    .boton-giratorio.girando {
+        transform: rotate(360deg);
+    }
+</style>
 
 <div class="flex justify-center items-center my-4">
     <span class="text-xl font-semibold">Pedidos</span>
@@ -16,7 +25,7 @@
                     ID
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    ID_Usuario
+                    Usuario
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Material
@@ -40,22 +49,23 @@
                     Hecho
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Creacion
+                    Pedido
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Actualización
+                    Actualización <button id="mi-boton" class="boton-giratorio ml-3"><i
+                            class="fa-solid fa-rotate-right"></i></button>
                 </th>
             </tr>
         </thead>
         <tbody>
             @foreach ($pedidos as $pedido)
             <tr class="bg-white border-b  hover:bg-gray-400">
-                <th scope="row" class="px-6 py-4 font-bold text-primario whitespace-nowrap ">
+                <td  class="px-6 py-4  ">
                     {{ $pedido->id }}
-                </th>
+                </td>
                 <td class="px-6 py-4">
-                    {{ $pedido->usuario;}}
-                    
+                    {{ $pedido->usuario }}
+
                 </td>
                 <td class="px-6 py-4">
                     {{ $pedido->material }}
@@ -77,27 +87,70 @@
                         class="font-medium text-blue-500 hover:underline">Descargar archivo</a>
                 </td>
                 <td class="px-6 py-4">
-                    @if ($pedido->hecho)
-                    Si
-                    @else
-                    No
-                    @endif
+                    @csrf
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" value="{{$pedido->id}}" name="id" class="sr-only peer check-pedido"
+                            onclick='updateHecho("{{$pedido->id}}")' @if ($pedido->hecho) checked
+                        @endif>
+                        <div
+                            class="shadow-gray-900 shadow-sm w-11 h-6 bg-gray-400 peer-focus:outline-none rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-coral-50  after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secundario-50">
+                        </div>
+
+                    </label>
+
                 </td>
                 <td class="px-6 py-4">
                     {{ $pedido->created_at }}
                 </td>
                 <td class="px-6 py-4">
                     {{ $pedido->updated_at }}
-                </td> 
+                </td>
             </tr>
+
             @endforeach
         </tbody>
     </table>
 </div>
+<!--token-->
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 
 
 <div class="flex justify-center mb-6">
     {{ $pedidos->links('pagination::tailwind') }}
 </div>
+
+<!--ajax-->
+
+
+<script>
+    function updateHecho(id) {
+
+        const xhr = new XMLHttpRequest();
+        const form = new FormData();
+        const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        form.append('id', id);
+        form.append('_token', token);
+        xhr.open('POST', "{{route('updatePedido')}}");
+        xhr.send(form);
+    }
+
+
+    //refrecar datos
+
+    const boton = document.getElementById("mi-boton");
+
+    boton.addEventListener("click", function () {
+        boton.classList.add("girando");
+
+        setTimeout(function () {
+            boton.classList.remove("girando");
+        }, 500);
+
+        location.reload();
+    });
+</script>
+
+
 @endsection

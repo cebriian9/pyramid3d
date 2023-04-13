@@ -20,27 +20,30 @@ class adminController extends Controller
             ->select('pedidos.*', 'usuarios.usuario')
             ->paginate(10);
 
-return view('admin/pedidos', compact('pedidos'));
-
-      
-        
-            
-        
         return view('admin/pedidos', compact('pedidos'));
+
+    }
+
+    public function updatePedido(Request $request)
+    {
+        $pedido=pedidos::find($request->id);
+        $pedido->hecho= !$pedido->hecho;
+        $pedido->save();
+
+        return "hola";
     }
 
     public function downloadFile($id)
     {
         $pedido = pedidos::find($id);
         //return $pedido->material;
-        
+
         if ($pedido) {
             //existe
             return response()->download($pedido->pathArchivo, $pedido->nombreArchivo);
-        }else {
+        } else {
             //no existe
-            return response('',404);
+            return response('', 404);
         }
-        
     }
 }
