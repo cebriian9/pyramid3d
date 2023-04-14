@@ -14,17 +14,6 @@
 </head>
 
 <body>
-    <div>
-        <h3 class=" ">Estas en pyramid3d test</h3>
-        <a href="{{ route('registro') }}">registro</a>
-        <a href="{{ route('inicioSesion') }}">iniciar sesion</a>
-        <a href="{{ route('logOut') }}">Cerrar Sesion</a>
-        <a href="{{ route('impresion') }}">privativo</a>
-        <a href="{{ route('pedidos') }}">adminPedidos</a>
-        <p>hola: @auth {{ Auth::user()->usuario }}
-            @else
-            invitado @endauth </p>
-    </div>
     <!--menu-->
     <nav class="bg-primario text-claro w-full top-0 ">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -33,22 +22,48 @@
                 <span class="self-center text-2xl font-semibold ">Pyramid3D</span>
             </a>
             <div class="flex md:order-2">
+                <!--icono user-->
                 @auth
-                    <div class="flex flex-col">
-                        <a href="{{ route('cuenta') }}">
-                            <span class="flex items-center justify-center gap-2">
+                    <div class="flex items-center ml-3">
+                        <div>
+                            <button type="button"
+                                class="flex rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                                aria-expanded="false" data-dropdown-toggle="dropdown-user">
+                                <span class="sr-only">Abrir menu de usuario</span>
+                                <span class="flex items-center justify-center gap-2">
 
-                                @if (Auth::user()->admin)
-                                    <i class="fa-solid fa-user-shield"></i>
-                                @else
-                                    <i class="fa-solid fa-user"></i>
-                                @endif
+                                    @if (Auth::user()->admin)
+                                        <i class="fa-solid fa-user-shield"></i>
+                                    @else
+                                        <i class="fa-solid fa-user"></i>
+                                    @endif
 
-                                {{ Auth::user()->usuario }}
-                            </span>
-                        </a>
-                        <span><a href="{{ route('logOut') }}" class="text-info-100">Cerrar Sesion</a></span>
+                                    {{ Auth::user()->usuario }}
+                                </span>
+                            </button>
+                        </div>
+                        <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow bg-primario"
+                            id="dropdown-user">
+                            <div class="px-4 py-3" role="none">
+                                <p class="text-sm font-medium text-claro truncate " role="none">
+                                    {{ Auth::user()->email }}
+                                </p>
+                            </div>
+                            <ul class="py-1 text-claro" role="none">
+                                <li>
+                                    <a href="{{ route('cuenta') }}" class="block px-4 py-2 text-claro hover:bg-gray-800 "
+                                        role="menuitem">Ajustes</a>
+                                </li>
+
+                                <li>
+                                    <a href="{{ route('logOut') }}" class="block px-4 py-2 text-info-100 hover:bg-gray-800 "
+                                        role="menuitem">Cerrar Sesion</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
+
+
                 @else
                     <nav class="gap-3 flex">
                         <a href="{{ route('inicioSesion') }}">
@@ -99,8 +114,8 @@
 
                     @auth
                         @if (Auth::user()->admin)
-                        <a href="{{ route('pedidos') }}" class="block py-2 pl-3 pr-4 text-white "
-                        aria-current="pedidos"><i class="fa-solid fa-user-shield mr-3"></i>Pedidos</a>
+                            <a href="{{ route('pedidos') }}" class="block py-2 pl-3 pr-4 text-white "
+                                aria-current="pedidos"><i class="fa-solid fa-user-shield mr-3"></i>Pedidos</a>
                         @endif
                     @endauth
 
