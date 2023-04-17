@@ -73,23 +73,38 @@
                 </div>
             </div>
 
-            <div class="flex flex-col gap-3">
-                <form action="{{route('resetPassword')}}" method="post">
+            <div class=" ">
+                <form action="{{ route('resetPassword') }}" method="post" class="flex flex-col gap-3">
                     @csrf
                     <span class="font-medium text-2xl">Cambiar Contraseña:</span>
                     <h3 class="font-medium">Contraseña actual:</h3>
                     <input type="text" id="password" name="password"
                         class=" border border-gray-300  text-sm rounded-lg px-2.5">
+                    @if (session('noCoinciden'))
+                        <span class="text-danger">
+                            {{ session('noCoinciden') }}
+                        </span>
+                    @endif
 
                     <h3 class="font-medium">Nueva contraseña:</h3>
                     <input type="text" id="password2" name="password2"
                         class=" border border-gray-300  text-sm rounded-lg px-2.5">
+                    @error('password2')
+                        <span class="text-danger">*{{ $message }}</span>
+                    @enderror
                     <input type="text" id="password22" name="password22"
                         class=" border border-gray-300  text-sm rounded-lg px-2.5">
-                    <button type="submit"
-                        class="text-claro bg-secundario-50 hover:bg-secundario-100  font-semibold rounded-lg text-sm p-2">
-                        Resetear contraseña
-                    </button>
+
+                    @error('password22')
+                        <span class="text-danger">*{{ $message }}</span>
+                    @enderror
+
+                    <div class="flex justify-center">
+                        <button type="submit"
+                            class="text-claro bg-secundario-50 hover:bg-secundario-100  font-semibold rounded-lg text-sm p-2">
+                            Resetear contraseña
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>

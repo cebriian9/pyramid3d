@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Hash;
 
+use Illuminate\Support\Facades\Crypt;
+
 class sesionController extends Controller
 {
     public function registroIndex()
@@ -21,7 +23,7 @@ class sesionController extends Controller
     {
         $customAttributes = [
             'password' => 'contraseña',
-            'password2'=>'confirmar contraseña',
+            'password2' => 'confirmar contraseña',
         ];
 
         $request->validate([
@@ -72,10 +74,10 @@ class sesionController extends Controller
 
         $remember = ($request->has('remember') ? true : false);
 
-        if (Auth::attempt($credenciales,$remember)) {
+        if (Auth::attempt($credenciales, $remember)) {
             $request->session()->regenerate();
             return redirect()->intended(route('index'));
-        }else {
+        } else {
             return redirect()->back()->with('error', 'Credenciales inválidas');
         }
 
@@ -93,14 +95,69 @@ class sesionController extends Controller
         return redirect(route('inicioSesion'));
     }
 
+    public function forgotIndex()
+    {
+        return view('sesiones/forgotPassword');
+    }
+
+    public function forgot(Request $request)
+    {
+        $request->validate([
+            'email'=>'required'
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        if ($user) {
+            $codigoSecreto=hash::make(time().$request->email);
+            $user->forgot=$codigoSecreto;
+            $user->save();
+        return $codigoSecreto;
+        }else{
+            return redirect()->back()->with('error', 'Ese email no existe');
+        }
+
+        
+    }
+
     public function resetPassword(Request $request)
     {
-        $user=User::find(Auth::user()->id);
-        
-        if ($user->password===Hash::make($request->password)) {
-            return "misma pass";
-        }else {
-            return "nmo".$user->password." ///// ".Hash::make($request->password);
+
+        $user = User::find(Auth::user()->id);
+
+        //checamos que sean las mismas pass
+        if (Hash::check($request->password, $user->password)) {
+
+            $customAttributes = [
+                'password2' => 'contraseña',
+                'password22' => 'confirmar contraseña',
+            ];
+
+            $request->validate([
+
+                'password2' => [
+                    'required',
+                    'max:50',
+                    Password::min(8)
+                        ->mixedCase()
+                        ->letters()
+                        ->numbers()
+                        ->symbols()
+                        ->uncompromised(),
+                ],
+                'password22' => 'required|same:password2',
+
+            ], [], $customAttributes);
+
+            //a la BBDD
+            //contraseña se cifran en el modelo user
+            $user->password = $request->password2;
+            $user->save();
+            
+            return redirect()->back();
+            
+        } else {
+            return redirect()->back()->with('noCoinciden', 'Contraseña incorrecta');
         }
     }
 }

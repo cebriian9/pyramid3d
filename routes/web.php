@@ -32,6 +32,10 @@ Route::post('cuenta/direccion',[cuentaController::class,'updateDireccion'])->nam
 //reset password
 Route::post('registro/reset',[sesionController::class,'resetPassword'])->name('resetPassword');
 
+//forgot
+Route::get('sesiones/forgotPassword',[sesionController::class,'forgotIndex'])->name('forgotPassword');
+Route::post('sesiones/forgotPassword',[sesionController::class,'forgot'])->name('forgotPassword');
+
 //ir a pagina de registrarse/iniciosesion
 Route::get('sesiones/registro',[sesionController::class,'registroIndex'])->name('registro')->middleware('guest');
 Route::get('sesiones/inicioSesion',[sesionController::class,'inicioSesionIndex'])->name('inicioSesion')->middleware('guest');

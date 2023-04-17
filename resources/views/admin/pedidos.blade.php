@@ -18,7 +18,7 @@
     </div>
 
     <div class=" overflow-x-auto sm:rounded-lg mt-7 mb-4">
-        <table class="w-full text-sm text-left">
+        <table class="w-full text-sm text-left ">
             <thead class=" uppercase bg-primario text-claro">
                 <tr>
                     <th scope="col" class="px-6 py-3">
@@ -119,8 +119,6 @@
     </div>
 
     <!--ajax-->
-
-
     <script>
         function updateHecho(id) {
 
@@ -136,7 +134,6 @@
 
 
         //refrecar datos
-
         const boton = document.getElementById("mi-boton");
 
         boton.addEventListener("click", function() {
