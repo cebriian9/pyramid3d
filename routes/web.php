@@ -30,7 +30,11 @@ Route::get('cuenta', [cuentaController::class,'cuentaIndex'])->name('cuenta')->m
 Route::post('cuenta/direccion',[cuentaController::class,'updateDireccion'])->name('updateDireccion');
 
 //reset password
-Route::post('registro/reset/{marca}',[sesionController::class,'resetPassword'])->name('resetPassword');
+Route::post('registro/reset',[sesionController::class,'resetPassword'])->name('resetPassword');
+
+//forgot
+Route::get('sesiones/forgotPassword',[sesionController::class,'forgotIndex'])->name('forgotPassword');
+Route::post('sesiones/forgotPassword',[sesionController::class,'forgot'])->name('forgotPassword');
 
 //ir a pagina de registrarse/iniciosesion
 Route::get('sesiones/registro',[sesionController::class,'registroIndex'])->name('registro')->middleware('guest');

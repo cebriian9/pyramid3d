@@ -9,8 +9,10 @@
     <div class="bg-primario p-6 rounded-2xl text-claro w-96 ">
         <div class="flex flex-col items-center mb-10">
             <!--foto-->
-            <img src="{{URL::asset('imagenes/logo.png')}}" class="w-32" alt="Logo...">
-            <p class="text-2xl font-semibold">Inicio de sesión</p>
+            <a href="{{route('index')}}">
+                <img src="{{URL::asset('imagenes/logo.png')}}" class="w-32" alt="Logo...">
+            </a>
+            <p class="text-2xl font-semibold">Crear cuenta</p>
         </div>
         <form action="{{ route('registrarse') }}" method="post" class="grid gap-5 ">
             @csrf

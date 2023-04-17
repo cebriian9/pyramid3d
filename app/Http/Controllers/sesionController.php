@@ -95,7 +95,30 @@ class sesionController extends Controller
         return redirect(route('inicioSesion'));
     }
 
+    public function forgotIndex()
+    {
+        return view('sesiones/forgotPassword');
+    }
 
+    public function forgot(Request $request)
+    {
+        $request->validate([
+            'email'=>'required'
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        if ($user) {
+            $codigoSecreto=hash::make(time().$request->email);
+            $user->forgot=$codigoSecreto;
+            $user->save();
+        return $codigoSecreto;
+        }else{
+            return redirect()->back()->with('error', 'Ese email no existe');
+        }
+
+        
+    }
 
     public function resetPassword(Request $request)
     {
