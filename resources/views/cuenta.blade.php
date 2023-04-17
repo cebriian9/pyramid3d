@@ -74,16 +74,23 @@
             </div>
 
             <div class="flex flex-col gap-3">
-                <span class="font-medium text-2xl">Cambiar Contraseña:</span>
-                <h3 class="font-medium">Contraseña actual:</h3>
-                <input type="text" id="password" name="password"
-                    class=" border border-gray-300  text-sm rounded-lg px-2.5">
+                <form action="{{route('resetPassword')}}" method="post">
+                    @csrf
+                    <span class="font-medium text-2xl">Cambiar Contraseña:</span>
+                    <h3 class="font-medium">Contraseña actual:</h3>
+                    <input type="text" id="password" name="password"
+                        class=" border border-gray-300  text-sm rounded-lg px-2.5">
 
-                <h3 class="font-medium">Nueva contraseña:</h3>
-                <input type="text" id="password2" name="password2"
-                    class=" border border-gray-300  text-sm rounded-lg px-2.5">
-                <input type="text" id="password22" name="password22"
-                    class=" border border-gray-300  text-sm rounded-lg px-2.5">
+                    <h3 class="font-medium">Nueva contraseña:</h3>
+                    <input type="text" id="password2" name="password2"
+                        class=" border border-gray-300  text-sm rounded-lg px-2.5">
+                    <input type="text" id="password22" name="password22"
+                        class=" border border-gray-300  text-sm rounded-lg px-2.5">
+                    <button type="submit"
+                        class="text-claro bg-secundario-50 hover:bg-secundario-100  font-semibold rounded-lg text-sm p-2">
+                        Resetear contraseña
+                    </button>
+                </form>
             </div>
         </div>
 
