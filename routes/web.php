@@ -26,13 +26,15 @@ Route::get('admin/pedidos/download/{id}',[adminController::class,'downloadFile']
 Route::post('admin/pedidos/update', [adminController::class,'updatePedido'])->name('updatePedido');
 
 //cuenta
-Route::get('cuenta', [cuentaController::class,'cuentaIndex'])->name('cuenta');
+Route::get('cuenta', [cuentaController::class,'cuentaIndex'])->name('cuenta')->middleware('auth');
+Route::post('cuenta/direccion',[cuentaController::class,'updateDireccion'])->name('updateDireccion');
 
 //ir a pagina de registrarse/iniciosesion
 Route::get('sesiones/registro',[sesionController::class,'registroIndex'])->name('registro')->middleware('guest');
 Route::get('sesiones/inicioSesion',[sesionController::class,'inicioSesionIndex'])->name('inicioSesion')->middleware('guest');
-Route::get('/impresion',[crearPedidosControlle::class,'impresionIndex'])->name('impresion')->middleware('auth');
 
+//ir a pedidos
+Route::get('/impresion',[crearPedidosControlle::class,'impresionIndex'])->name('impresion')->middleware('auth');
 //crear pedido
 Route::post('/impresion',[crearPedidosControlle::class,'crearImpresion'])->name('crearImpresion')->middleware('auth');
 
