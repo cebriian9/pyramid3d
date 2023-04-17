@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Hash;
+
 class sesionController extends Controller
 {
     public function registroIndex()
@@ -89,5 +91,16 @@ class sesionController extends Controller
         $request->session()->regenerate();
 
         return redirect(route('inicioSesion'));
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $user=User::find(Auth::user()->id);
+        
+        if ($user->password===Hash::make($request->password)) {
+            return "misma pass";
+        }else {
+            return "nmo".$user->password." ///// ".Hash::make($request->password);
+        }
     }
 }

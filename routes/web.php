@@ -29,6 +29,9 @@ Route::post('admin/pedidos/update', [adminController::class,'updatePedido'])->na
 Route::get('cuenta', [cuentaController::class,'cuentaIndex'])->name('cuenta')->middleware('auth');
 Route::post('cuenta/direccion',[cuentaController::class,'updateDireccion'])->name('updateDireccion');
 
+//reset password
+Route::post('registro/reset',[sesionController::class,'resetPassword'])->name('resetPassword');
+
 //ir a pagina de registrarse/iniciosesion
 Route::get('sesiones/registro',[sesionController::class,'registroIndex'])->name('registro')->middleware('guest');
 Route::get('sesiones/inicioSesion',[sesionController::class,'inicioSesionIndex'])->name('inicioSesion')->middleware('guest');
@@ -44,3 +47,5 @@ Route::post('registro/registrarse',[sesionController::class,'registroCreate'])->
 Route::post('registro/inicioSesion',[sesionController::class,'inicioSesion'])->name('inicioSes');
 //logOut
 Route::get('registro/logOut',[sesionController::class,'logOut'])->name('logOut');
+
+
