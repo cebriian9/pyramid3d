@@ -7,6 +7,7 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\sesionController;
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 
 Route::get('/', IndexController::class)->name('index');
 
@@ -35,6 +37,10 @@ Route::post('registro/reset',[sesionController::class,'resetPassword'])->name('r
 //forgot
 Route::get('sesiones/forgotPassword',[sesionController::class,'forgotIndex'])->name('forgotPassword');
 Route::post('sesiones/forgotPassword',[sesionController::class,'forgot'])->name('forgotPassword');
+
+Route::get('sesiones/forgotPassword/{codigo}',[sesionController::class,'forgotReset'])->name('forgotReset');
+
+
 
 //ir a pagina de registrarse/iniciosesion
 Route::get('sesiones/registro',[sesionController::class,'registroIndex'])->name('registro')->middleware('guest');
