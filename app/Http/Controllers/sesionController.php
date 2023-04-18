@@ -112,7 +112,7 @@ class sesionController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if ($user) {
-            $codigoSecreto = hash::make(time() . $request->email);
+            $codigoSecreto = time() . $request->email;
             $user->forgot = $codigoSecreto;
             $user->save();
             $correo = new forgotMailable($user);
@@ -121,6 +121,38 @@ class sesionController extends Controller
         } else {
             return redirect()->back()->with('error', 'Ese email no existe');
         }
+    }
+
+    public function forgotResetIndex($codigo)
+    {
+        return view('sesiones/forgotReset', compact('codigo'));
+        
+    }
+
+    public function forgotReset(Request $request)
+    {
+        $request->validate([
+            'password' => [
+                'required',
+                'max:50',
+                Password::min(8)
+                    ->mixedCase()
+                    ->letters()
+                    ->numbers()
+                    ->symbols()
+                    ->uncompromised(),
+            ],
+            'password2' => 'required|same:password'
+        ]);
+        
+        $user = User::where('forgot', $request->codigo)->first();
+        
+        $user->password=$request->password;
+        $user->forgot=null;
+        $user->save();
+        
+        return view('sesiones/inicioSesion');
+        
     }
 
     public function resetPassword(Request $request)

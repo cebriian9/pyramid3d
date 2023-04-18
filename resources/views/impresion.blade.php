@@ -4,6 +4,16 @@
 
 @section('contenido')
 
+<script>
+
+
+
+</script>
+
+ <section class="m-12 bg-beige ">
+
+ </section>
+
 <section class=" m-12">
     <form action="{{route('crearImpresion')}}" method="post" enctype="multipart/form-data" class="">
         @csrf
@@ -13,8 +23,8 @@
                     <h1>Sube tus diseños </h1>
                 </span>
 
-                <div id="drag-drop" class="flex items-center justify-center ">
-                    <label for="dropzone-file"
+                <div id="drag-drop" class="flex items-center justify-center " >
+                    <label for="inputFile"
                         class=" flex flex-col items-center justify-center w-full h-96 border-2 border-primario border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-secundario-gray-200">
                         <div class="flex flex-col items-center justify-center pt-5 pb-6">
                             <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none"
@@ -31,7 +41,7 @@
                             </p>
                             <p class=" ">*Solo archivos .stl</p>
                         </div>
-                        <input id="dropzone-file" name="stlFile" type="file" accept=".stl" class="hidden sm:block" required/>
+                        <input id="inputFile" name="stlFile" type="file" accept=".stl" class="hidden sm:block" required/>
                     </label>
                 </div>
                 @error('stlFile')

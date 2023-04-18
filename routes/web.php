@@ -38,8 +38,8 @@ Route::post('registro/reset',[sesionController::class,'resetPassword'])->name('r
 Route::get('sesiones/forgotPassword',[sesionController::class,'forgotIndex'])->name('forgotPassword');
 Route::post('sesiones/forgotPassword',[sesionController::class,'forgot'])->name('forgotPassword');
 
-Route::get('sesiones/forgotPassword/{codigo}',[sesionController::class,'forgotReset'])->name('forgotReset');
-
+Route::get('sesiones/forgotPassword/{codigo}',[sesionController::class,'forgotResetIndex'])->name('forgotResetIndex');
+Route::post('sesiones/forgotPassword/reset',[sesionController::class,'forgotReset'])->name('forgotReset');
 
 
 //ir a pagina de registrarse/iniciosesion

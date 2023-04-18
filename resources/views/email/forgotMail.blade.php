@@ -124,14 +124,14 @@
         <p class=" font-semibold">
             Hola, {{$user->usuario}}
         </p>
-        <a href="" class="flex justify-center">
+        <a href="http://127.0.0.1:8000/sesiones/forgotPassword/{{$user->forgot}}" class="flex justify-center">
             <button type="submit"
                 class="bg-secundario-50 p-2 text-xl rounded-full text-claro font-medium hover:bg-secundario-100">
                 Restaurar contraseña
             </button>
         </a>
 
-        <p class=" font-semibold">Si el boton no funciona pruebe con pinchando aqui: <a href="">Restaurar Contraseña</a>
+        <p class=" font-semibold">Si el boton no funciona pruebe con pinchando aqui: <a href="http://127.0.0.1:8000/sesiones/forgotPassword/{{$user->forgot}}">Restaurar Contraseña</a>
         </p>
     </div>
 </div>
