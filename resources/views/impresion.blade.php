@@ -4,20 +4,12 @@
 
 @section('contenido')
 
-<script>
 
-
-
-</script>
-
- <section class="m-12 bg-beige ">
-
- </section>
 
 <section class=" m-12">
     <form action="{{route('crearImpresion')}}" method="post" enctype="multipart/form-data" class="">
         @csrf
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+        <div class="grid grid-cols-1 lg:grid-cols-3 sm:gap-10">
             <div class="col-span-2 ">
                 <span class="text-2xl font-semibold">
                     <h1>Sube tus diseños </h1>
@@ -51,7 +43,7 @@
 
 
             <!--form lateral-->
-            <div class="w-full sm:w-3/4 flex flex-col gap-6">
+            <div class="w-full sm:w-3/4 flex flex-col gap-6 mt-10 sm:mt-0">
                 <div>
                     <label for="material" class="block text-2xl font-semibold ">Selecciona el material:</label>
                     <select name="material" id="material"
@@ -155,8 +147,12 @@
                     ¡Imprimir!
                 </button>
 
+                <div>
+                    <span class="text-xl font-semibold">Precio: <span><input type="text"></span>€</span>
+                </div>
             </div>
 
+            
         </div>
     </form>
 

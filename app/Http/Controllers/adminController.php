@@ -46,4 +46,12 @@ class adminController extends Controller
             return response('', 404);
         }
     }
+
+    public function datosPedido($id)
+    {
+        $pedido=pedidos::find($id);
+        $user=User::find($pedido->id_user);
+
+        return view('admin/datosPedido', compact('pedido','user'));
+    }
 }
