@@ -26,6 +26,7 @@ Route::get('/', IndexController::class)->name('index');
 Route::get('admin/pedidos',[adminController::class,'adminIndex'])->name('pedidos')->middleware('auth');//que no entre cualquira
 Route::get('admin/pedidos/download/{id}',[adminController::class,'downloadFile'])->name('descarga')->middleware('auth');
 Route::post('admin/pedidos/update', [adminController::class,'updatePedido'])->name('updatePedido');
+Route::get('admin/datosPedido/{id}',[adminController::class,'datosPedido'])->name('datosPedido');
 
 //cuenta
 Route::get('cuenta', [cuentaController::class,'cuentaIndex'])->name('cuenta')->middleware('auth');

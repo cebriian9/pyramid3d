@@ -17,7 +17,7 @@
         <span class="text-xl font-semibold">Pedidos</span>
     </div>
 
-    <div class=" overflow-x-auto sm:rounded-lg mt-7 mb-4">
+    <div class=" overflow-x-auto sm:rounded-lg mt-7 mb-4 ">
         <table class="w-full text-sm text-left ">
             <thead class=" uppercase bg-primario text-claro">
                 <tr>
@@ -59,7 +59,8 @@
             </thead>
             <tbody>
                 @foreach ($pedidos as $pedido)
-                    <tr class="bg-white border-b  hover:bg-gray-400">
+                    <tr class="bg-white border-b  hover:bg-gray-400 cursor-pointer enlace"
+                        data-href="/admin/datosPedido/{{ $pedido->id }}">
                         <td class="px-6 py-4  ">
                             {{ $pedido->id }}
                         </td>
@@ -87,12 +88,12 @@
                         </td>
                         <td class="px-6 py-4">
                             @csrf
-                            <label class="relative inline-flex items-center cursor-pointer">
+                            <label class="relative inline-flex items-center cursor-pointer no-enlace">
                                 <input type="checkbox" value="{{ $pedido->id }}" name="id"
-                                    class="sr-only peer check-pedido" onclick='updateHecho("{{ $pedido->id }}")'
+                                    class="sr-only peer check-pedido no-enlace" onclick='updateHecho("{{ $pedido->id }}")'
                                     @if ($pedido->hecho) checked @endif>
                                 <div
-                                    class="shadow-gray-900 shadow-sm w-11 h-6 bg-gray-400 peer-focus:outline-none rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-coral-50  after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secundario-50">
+                                    class="no-enlace shadow-gray-900 shadow-sm w-11 h-6 bg-gray-400 peer-focus:outline-none rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-coral-50  after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secundario-50">
                                 </div>
 
                             </label>
@@ -124,8 +125,10 @@
 
             const xhr = new XMLHttpRequest();
             const form = new FormData();
+            //optengo el token para enviarlo
             const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
+            //saco el id del pedido
             form.append('id', id);
             form.append('_token', token);
             xhr.open('POST', "{{ route('updatePedido') }}");
@@ -135,7 +138,6 @@
 
         //refrecar datos
         const boton = document.getElementById("mi-boton");
-
         boton.addEventListener("click", function() {
             boton.classList.add("girando");
 
@@ -144,6 +146,25 @@
             }, 500);
 
             location.reload();
+        });
+
+        // Seleccionar todas las filas que tienen la clase "enlace"
+        var filasEnlace = document.querySelectorAll('.enlace');
+
+        // Agregar un controlador de eventos de clic a cada fila
+        filasEnlace.forEach(function(fila) {
+            fila.addEventListener('click', function(evento) {
+                // Comprobar si se ha hecho clic en el checkbox
+                if (evento.target.classList.contains('no-enlace')) {
+                    // Detener la propagación del evento de clic
+                    evento.stopPropagation();
+                } else {
+                    // Obtener la URL almacenada en el atributo "data-href" de la fila
+                    var url = this.getAttribute('data-href');
+                    // Redirigir a la página correspondiente
+                    window.location.href = url;
+                }
+            });
         });
     </script>
 
