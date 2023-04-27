@@ -6,6 +6,7 @@
 
 
 
+
 <section class=" m-12">
     <form action="{{route('crearImpresion')}}" method="post" enctype="multipart/form-data" class="">
         @csrf
@@ -15,8 +16,13 @@
                     <h1>Sube tus diseños </h1>
                 </span>
 
-                <div id="drag-drop" class="flex items-center justify-center ">
-                    <label for="inputFile"
+                <div class="flex items-center justify-center ">
+
+                    <div id="vista" class="hidden border-2 border-primario border-dashed rounded-lg h-96 w-full">
+
+                    </div>
+
+                    <label for="inputFile" id="input"
                         class=" flex flex-col items-center justify-center w-full h-96 border-2 border-primario border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-secundario-gray-200">
                         <div class="flex flex-col items-center justify-center pt-5 pb-6">
                             <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none"
@@ -27,14 +33,14 @@
                             </svg>
                             <p class="text-center mb-2 m-3">
                                 <span class="font-semibold">
-                                    Click para subir upload
+                                    Click para subir archivos
                                 </span>
-                                o arrastra tu archivo
+
                             </p>
                             <p class=" ">*Solo archivos .stl</p>
                         </div>
-                        <input id="inputFile" name="stlFile" type="file" accept=".stl" class="hidden sm:block"
-                            required />
+                        <input id="inputFile" name="stlFile" type="file"
+                            class="rounded-lg p-1 text-sm text-claro bg-primario cursor-pointer" required />
                     </label>
                 </div>
                 @error('stlFile')
@@ -149,15 +155,10 @@
                     ¡Imprimir!
                 </button>
 
-                <script async src="https://js.stripe.com/v3/buy-button.js">
-                </script>
 
-                <stripe-buy-button buy-button-id="buy_btn_1MyYljEyHBCLrjeuFVKtrUJh"
-                    publishable-key="pk_test_51IJEIFEyHBCLrjeuHttZBWznp2Mpy68bxVwr6OFuWNAc8wMeigHUoLUuh5E64gd3cz1SLMwF9Vo7Gil7SjKIUKNy00JhDxFH1h">
-                </stripe-buy-button>
 
                 <div>
-                    <span class="text-xl font-semibold">Precio: <span><input type="text"></span>€</span>
+                    <span class="text-xl font-semibold ">Precio: <span><input type="text"></span>€</span>
                 </div>
             </div>
 
@@ -165,7 +166,134 @@
         </div>
     </form>
 
+    <script type="module">
 
+        import * as THREE from "{{ asset('js/three.module.js') }}";
+        import { OrbitControls } from "{{ asset('js/OrbitControls.js') }}";
+        import { STLLoader } from "{{ asset('js/STLLoader.js') }}";
+
+        let scene, camera, renderer, object;
+
+        let inputFile=document.querySelector('#inputFile')
+
+        let inputZona = document.querySelector('#input');
+        let vista = document.querySelector('#vista');
+
+        inputFile.addEventListener("change",function () {
+            console.log(inputFile.value);
+
+            if (inputFile.value) {
+                inputZona.classList.replace('flex','hidden')
+                vista.classList.replace('hidden','block')
+            }
+        })
+
+
+
+        function init() {
+            //scene
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x001d33)
+            const vista = document.querySelector('#vista');
+            //camera
+            camera = new THREE.PerspectiveCamera(
+                75,
+                (vista.offsetWidth) / (vista.offsetHeight)
+            );
+            camera.position.z = 5;
+            camera.position.y = 3
+            camera.rotation.x = -0.5
+
+            //renderer
+            renderer = new THREE.WebGLRenderer();
+            renderer.setSize((vista.offsetWidth - 4), (vista.offsetHeight - 4))
+            //poner el div que es en vez de body
+            vista.appendChild(renderer.domElement);
+
+            scene.add(object);
+
+            //controles
+
+            let control = new OrbitControls(camera, renderer.domElement)
+            control.minDistance = 3
+            control.maxDistance = 7
+            control.enablePan = false
+
+            //luces
+            let light = new THREE.DirectionalLight(0xffffff);
+            light.position.set(-0.1, -0.1, -0.1);
+            scene.add(light);
+
+            let light2 = new THREE.DirectionalLight(0xffffff);
+            light2.position.set(0.1, 0.1, 0.1);
+            scene.add(light2);
+
+            let light3 = new THREE.DirectionalLight(0xffffff);
+            light3.position.set(0, 0, -0.1);
+            scene.add(light3);
+
+            let light4 = new THREE.DirectionalLight(0xffffff);
+            light3.position.set(0, 0, 0.1);
+            scene.add(light4);
+
+
+            const groundSize = 50;
+            const gridSpacing = 1;
+
+            // Crear geometría de cuadrícula
+            const gridGeometry = new THREE.PlaneGeometry(groundSize, groundSize, groundSize / gridSpacing, groundSize / gridSpacing);
+
+            // Crear material de alambre
+            const wireframeMaterial = new THREE.MeshBasicMaterial({
+                color: 0xffffff,
+                wireframe: true,
+                opacity: 0.3,
+                transparent: true,
+            });
+
+            // Crear malla de cuadrícula y asignarle el material de alambre
+            const gridMesh = new THREE.Mesh(gridGeometry, wireframeMaterial);
+
+            // Rotar la malla para que esté orientada horizontalmente
+            gridMesh.rotation.x = -Math.PI / 2;
+
+            // Añadir la malla a la escena
+            scene.add(gridMesh);
+
+            animate();
+            
+            //escalado
+            window.addEventListener("resize", resize())
+
+            function resize() {
+                camera.aspect=(vista.offsetWidth) / (vista.offsetHeight)
+                camera.updateProjectionMatrix()
+                renderer.setSize((vista.offsetWidth - 4), (vista.offsetHeight - 4))
+                renderer.render(scene, camera);
+            }
+
+            
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+        
+
+        let loader = new STLLoader();
+        loader.load("storage/1681888457-soportekindlev1.stl", (model) => {
+            object = new THREE.Mesh(
+                model,
+                new THREE.MeshLambertMaterial({ color: 0xff6f00 })
+            );
+            object.scale.set(0.05, 0.05, 0.05);
+            object.position.set(0, 0, 0);
+            object.rotation.x = -Math.PI / 2;
+            init();
+        });
+
+    </script>
 
 </section>
 
