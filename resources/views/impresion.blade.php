@@ -15,7 +15,7 @@
                     <h1>Sube tus diseños </h1>
                 </span>
 
-                <div id="drag-drop" class="flex items-center justify-center " >
+                <div id="drag-drop" class="flex items-center justify-center ">
                     <label for="inputFile"
                         class=" flex flex-col items-center justify-center w-full h-96 border-2 border-primario border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-secundario-gray-200">
                         <div class="flex flex-col items-center justify-center pt-5 pb-6">
@@ -33,7 +33,8 @@
                             </p>
                             <p class=" ">*Solo archivos .stl</p>
                         </div>
-                        <input id="inputFile" name="stlFile" type="file" accept=".stl" class="hidden sm:block" required/>
+                        <input id="inputFile" name="stlFile" type="file" accept=".stl" class="hidden sm:block"
+                            required />
                     </label>
                 </div>
                 @error('stlFile')
@@ -140,24 +141,32 @@
                     <label for="tamaño" class="block text-2xl font-semibold ">Tamaño:</label>
                     <input type="number" id="tamaño" name="tamano" placeholder="(10-250)mm" max="250" min="10"
                         class="bg-gray-50 border border-gray-300  text-sm rounded-lg block w-full p-2.5 ">
-                        <p class="text-sm text-gray-500">*Dejar vacio para usar el tamaño original de tu diseño</p>
+                    <p class="text-sm text-gray-500">*Dejar vacio para usar el tamaño original de tu diseño</p>
                 </div>
 
-                <button type="submit" class="text-claro bg-secundario-50 hover:bg-secundario-100  font-semibold rounded-lg px-28  py-2">
+                <button type="submit"
+                    class="text-claro bg-secundario-50 hover:bg-secundario-100  font-semibold rounded-lg px-28  py-2">
                     ¡Imprimir!
                 </button>
+
+                <script async src="https://js.stripe.com/v3/buy-button.js">
+                </script>
+
+                <stripe-buy-button buy-button-id="buy_btn_1MyYljEyHBCLrjeuFVKtrUJh"
+                    publishable-key="pk_test_51IJEIFEyHBCLrjeuHttZBWznp2Mpy68bxVwr6OFuWNAc8wMeigHUoLUuh5E64gd3cz1SLMwF9Vo7Gil7SjKIUKNy00JhDxFH1h">
+                </stripe-buy-button>
 
                 <div>
                     <span class="text-xl font-semibold">Precio: <span><input type="text"></span>€</span>
                 </div>
             </div>
 
-            
+
         </div>
     </form>
 
 
-    
+
 </section>
 
 @endsection
