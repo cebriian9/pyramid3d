@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', IndexController::class)->name('index');
+Route::get('pruebas', [IndexController::class,'pruebas'])->name('pruebas');
 
 //admins
 Route::get('admin/pedidos',[adminController::class,'adminIndex'])->name('pedidos')->middleware('auth');//que no entre cualquira
