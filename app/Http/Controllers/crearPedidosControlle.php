@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
+
+
 class crearPedidosControlle extends Controller
 {
     public function impresionIndex()
@@ -49,10 +51,10 @@ class crearPedidosControlle extends Controller
                 'pathArchivo'
                 */
             $file = $request->file('stlFile');
-            
-            $nombreArchivo=time()."-".$file->getClientOriginalName();
-            $pathArchivo = $request->file('stlFile')->storeAs('public',$nombreArchivo);
-            
+
+            $nombreArchivo = time() . "-" . $file->getClientOriginalName();
+            $pathArchivo = $request->file('stlFile')->storeAs('public', $nombreArchivo);
+
 
             $pedido->id_user = Auth::user()->id;
             $pedido->material = $request->material;
@@ -64,7 +66,7 @@ class crearPedidosControlle extends Controller
             $pedido->pathArchivo = $pathArchivo;
             $pedido->hecho = 0;
 
-            
+
 
             //a la base de datos y para casa
             $pedido->save();
@@ -74,5 +76,14 @@ class crearPedidosControlle extends Controller
         }
     }
 
-    
+
+    public function muestra3D(Request $request)
+    {
+
+        $file = $request->file('archivo');
+        $ruta = $file->storeAs('public/tmpStorage', time() . "-" . Auth::user()->usuario);
+        
+        return response()->json(['ruta' => $ruta]);
+    }
+
 }

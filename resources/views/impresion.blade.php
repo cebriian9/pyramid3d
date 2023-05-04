@@ -8,12 +8,13 @@
 
 
 <section class=" m-12">
-    <form action="{{route('crearImpresion')}}" method="post" enctype="multipart/form-data" class="">
+    <form action="{{route('crearImpresion')}}" method="post" enctype="multipart/form-data" id="formulario" class="">
         @csrf
         <div class="grid grid-cols-1 lg:grid-cols-3 sm:gap-10 ">
             <div class="col-span-2 ">
-                <span class="text-2xl font-semibold">
+                <span class="text-2xl font-semibold flex justify-between">
                     <h1>Sube tus diseños </h1>
+                    <p id="mi-boton" class="text-base cursor-pointer">Eliminar actual  <button  class="ml-2"><i class="fa-solid fa-x"></i></button></p>
                 </span>
 
                 <div class="flex flex-col items-center justify-center gap-3">
@@ -41,13 +42,22 @@
 
                             </div>
                             <input id="inputFile" name="stlFile" type="file"
-                                class="hidden rounded-lg p-1 text-sm text-claro bg-secundario-50 cursor-pointer" required />
+                                class="hidden rounded-lg p-1 text-sm text-claro bg-secundario-50 cursor-pointer"
+                                required />
+                            @error('stlFile')
+                            <span class="text-danger">*{{ $message }}</span>
+                            @enderror
+                            <span id="errorSTL" class="text-danger"></span>
                         </label>
-                        @error('stlFile')
-                        <span class="text-danger">*{{ $message }}</span>
-                        @enderror
-                    </div>
 
+                    </div>
+                    <div class=" hidden sm:flex flex-col items-center gap-3">
+                        <p>Controles:</p>
+                        <div class="flex justify-between">
+                            <p class="flex items-center mr-5"><img src="{{URL::asset('imagenes/mouse_lef.ico')}}">Giro</p>
+                            <p class="flex items-center"><img src="{{URL::asset('imagenes/mouse_rig.ico')}}">Movimiento</p>
+                        </div>
+                    </div>
                 </div>
 
 
@@ -57,7 +67,7 @@
 
             <div class="flex justify-center">
                 <!--form lateral-->
-                <div class="w-full sm:w-3/4 flex flex-col gap-6 mt-10 sm:mt-0">
+                <div class="w-full lg:w-3/4 flex flex-col gap-6 mt-10 sm:mt-0">
 
                     <!--material-->
                     <div>
@@ -163,7 +173,7 @@
                     </div>
 
                     <button type="submit"
-                        class="text-claro bg-secundario-50 hover:bg-secundario-100  font-semibold rounded-lg px-28  py-2">
+                        class="text-claro flex justify-center bg-secundario-50 hover:bg-secundario-100  font-semibold rounded-lg px-28  py-2">
                         ¡Imprimir!
                     </button>
 
@@ -178,42 +188,75 @@
 
         </div>
     </form>
+    <!--token-->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="module">
-
-        //ajax
-        $('#formulario').submit(function(event) {
-    event.preventDefault();
-    
-    var formData = new FormData(this);
-    
-    $.ajax({
-        url: '/ruta/del/controlador',
-        type: 'POST',
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function(response) {
-            console.log(response);
-        },
-        error: function(xhr, status, error) {
-            console.log(xhr.responseText);
-        }
-    });
-});
-
-
-
-
-
-
-
         import * as THREE from "{{ asset('js/three.module.js') }}";
         import { OrbitControls } from "{{ asset('js/OrbitControls.js') }}";
         import { STLLoader } from "{{ asset('js/STLLoader.js') }}";
 
-        let inputFile = document.querySelector('#inputFile')
 
+
+
+        //ajax
+        $(document).ready(function () {
+            $("#inputFile").change(function () {
+                //var formData = new FormData($("#formulario")[0]);
+                var token = $('meta[name="csrf-token"]').attr('content');
+
+                var archivo = document.getElementById('inputFile').files[0];
+                console.log();
+                if (archivo['name'].endsWith('.stl')) {
+                    document.getElementById('errorSTL').innerHTML = ""
+                    const xhr = new XMLHttpRequest();
+                    const form = new FormData();
+                    //optengo el token para enviarlo
+
+
+                    form.append('archivo', archivo);
+                    form.append('_token', token);
+                    xhr.open('POST', "{{ route('muestra3D') }}");
+                    xhr.send(form);
+
+                    xhr.onload = function () {
+                        if (xhr.status === 200) {
+                            var respuesta = JSON.parse(xhr.responseText);
+                            const ruta = respuesta.ruta;
+
+                            const nuevaRuta = ruta.replace('public', 'storage');
+
+                            cargarSTL(nuevaRuta)
+                        }
+                    };
+                } else {
+                    document.getElementById('errorSTL').innerHTML = "*El archivo debe ser un .stl"
+                }
+            });
+        });
+
+        //ajax
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        let inputFile = document.querySelector('#inputFile')
         let scene, camera, renderer, object;
 
         function init() {
@@ -239,19 +282,16 @@
             //scene.add(object);
 
 
-            inputFile.addEventListener("change", function () {
 
-                scene.add(object);
 
-            })
 
 
             //controles
 
             let control = new OrbitControls(camera, renderer.domElement)
             control.minDistance = 3
-            control.maxDistance = 7
-            control.enablePan = false
+            control.maxDistance = 10
+            //control.enablePan = false
 
             //luces
             let light = new THREE.DirectionalLight(0xffffff);
@@ -310,6 +350,7 @@
             }
 
 
+
         }
 
         function animate() {
@@ -320,18 +361,38 @@
         //iniciar la escena
         init();
 
-        //cargar el stl
-        let loader = new STLLoader();
-        loader.load("storage/1681888457-soportekindlev1.stl", (model) => {
-            object = new THREE.Mesh(
-                model,
-                new THREE.MeshLambertMaterial({ color: 0xff6f00 })
-            );
-            object.scale.set(0.05, 0.05, 0.05);
-            object.position.set(0, 0, 0);
-            object.rotation.x = -Math.PI / 2;
 
+        function cargarSTL(nuevaRuta) {
+
+
+            //cargar el stl
+            let loader = new STLLoader();
+
+            //{{ asset('tmpStorage/nombre_del_archivo') }}
+            //storage/1681888457-soportekindlev1.stl
+
+            loader.load(nuevaRuta, (model) => {
+                object = new THREE.Mesh(
+                    model,
+                    new THREE.MeshLambertMaterial({ color: 0xff6f00 })
+                );
+                object.scale.set(0.05, 0.05, 0.05);
+                object.position.set(0, 0, 0);
+                object.rotation.x = -Math.PI / 2;
+                scene.add(object);
+            });
+            //cargar el stl
+        }
+
+
+        //refrecar datos
+        const boton = document.getElementById("mi-boton");
+        boton.addEventListener("click", function () {
+
+            location.reload();
         });
+
+
 
     </script>
 

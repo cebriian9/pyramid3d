@@ -51,6 +51,8 @@ Route::get('sesiones/inicioSesion',[sesionController::class,'inicioSesionIndex']
 Route::get('/impresion',[crearPedidosControlle::class,'impresionIndex'])->name('impresion')->middleware('auth');
 //crear pedido
 Route::post('/impresion',[crearPedidosControlle::class,'crearImpresion'])->name('crearImpresion')->middleware('auth');
+//visor 3D
+Route::post('/muestra3D',[crearPedidosControlle::class,'muestra3D'])->name('muestra3D');
 
 //registrarse
 Route::post('registro/registrarse',[sesionController::class,'registroCreate'])->name('registrarse');
