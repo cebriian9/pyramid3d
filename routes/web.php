@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', IndexController::class)->name('index');
+Route::get('pruebas', [IndexController::class,'pruebas'])->name('pruebas');
 
 //admins
 Route::get('admin/pedidos',[adminController::class,'adminIndex'])->name('pedidos')->middleware('auth');//que no entre cualquira
@@ -51,6 +52,8 @@ Route::get('sesiones/inicioSesion',[sesionController::class,'inicioSesionIndex']
 Route::get('/impresion',[crearPedidosControlle::class,'impresionIndex'])->name('impresion')->middleware('auth');
 //crear pedido
 Route::post('/impresion',[crearPedidosControlle::class,'crearImpresion'])->name('crearImpresion')->middleware('auth');
+//visor 3D
+Route::post('/muestra3D',[crearPedidosControlle::class,'muestra3D'])->name('muestra3D');
 
 //registrarse
 Route::post('registro/registrarse',[sesionController::class,'registroCreate'])->name('registrarse');
