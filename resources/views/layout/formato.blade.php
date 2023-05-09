@@ -104,11 +104,11 @@
                     <li>
                         <!-- no para admins cambiar para produ-->
                         <a href="{{ route('impresion') }}" class="block py-2 pl-3 pr-4 text-white "
-                            aria-current="Personalizacion">Personalizacion</a>
+                            aria-current="Impresion">Impresion</a>
                     </li>
 
                     @auth
-                        <a href="{{ route('cuenta') }}" class="block py-2 pl-3 pr-4 text-white "
+                        <a href="{{ route('cuenta') }}" class="block py-2 pl-3 pr-4 text-white md:hidden"
                             aria-current="Cuenta">Cuenta</a>
                     @endauth
 
