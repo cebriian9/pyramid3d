@@ -3,6 +3,7 @@
 use App\Http\Controllers\adminController;
 use App\Http\Controllers\crearPedidosControlle;
 use App\Http\Controllers\cuentaController;
+use App\Http\Controllers\enlacesController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\sesionController;
 use Illuminate\Support\Facades\Route;
@@ -63,3 +64,8 @@ Route::post('registro/inicioSesion',[sesionController::class,'inicioSesion'])->n
 Route::get('registro/logOut',[sesionController::class,'logOut'])->name('logOut');
 
 
+//copsitas que poca gente usa
+Route::get('preguntas_frecuentes',[enlacesController::class,'faqs'])->name('faqs');
+Route::get('sobreNosotros',[enlacesController::class,'sobreNosotros'])->name('sobreNosotros');
+Route::get('privacidad',[enlacesController::class,'privacidad'])->name('privacidad');
+Route::get('contacto',[enlacesController::class,'contacto'])->name('contacto');

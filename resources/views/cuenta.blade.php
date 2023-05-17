@@ -4,9 +4,9 @@
 
 @section('contenido')
 
-<div class="container bg-claro rounded-xl md:w-3/4 lg:w-3/5 p-10 pb-14 mt-10 mb-24">
-    <span class="flex justify-center text-2xl font-semibold items-baseline gap-2"> <i
-            class="fa-solid fa-user"></i>Ajsutes</span>
+<div class="container bg-claro rounded-xl md:w-3/4 lg:w-3/5 md:p-10 pb-14 mt-10 mb-24">
+    <span class="flex justify-center text-2xl font-semibold items-baseline gap-2"> 
+        <i class="fa-solid fa-user mt-10 md:mt-0"></i>Ajustes</span>
 
     <div class="flex flex-col gap-6 px-14">
 
@@ -25,7 +25,7 @@
             <div class="flex flex-col gap-3">
                 <nav><span class="font-bold">Dirección:</span> <span id="direccion">
                         @if (Auth::user()->direccion == null)
-                        <span class="text-danger">**Rellene el formulario para completar la cuenta**</span>
+                        <span class="text-danger">**Rellena los datos para completar la cuenta</span>
                         @else
                         {{ Auth::user()->direccion }}
                         @endif
@@ -36,7 +36,7 @@
                         <h2 id="accordion-collapse-heading-1">
                             <button type="button"
                                 class="flex items-center justify-between w-64 p-3   bg-secundario-50 hover:bg-secundario-100 rounded-t-xl "
-                                data-accordion-target="#accordion-collapse-body-1" aria-expanded="true"
+                                data-accordion-target="#accordion-collapse-body-1" aria-expanded="false"
                                 aria-controls="accordion-collapse-body-1">
                                 <span class="text-claro">Añadir nueva dirección</span>
                                 <svg data-accordion-icon class="w-6 h-6 rotate-180 shrink-0 text-claro" fill="currentColor"

@@ -18,6 +18,7 @@ class adminController extends Controller
         $pedidos = DB::table('pedidos')
             ->join('usuarios', 'usuarios.id', '=', 'pedidos.id_user')
             ->select('pedidos.*', 'usuarios.usuario')
+            ->orderBy('pedidos.created_at', 'desc')
             ->paginate(10);
 
         return view('admin/pedidos', compact('pedidos'));

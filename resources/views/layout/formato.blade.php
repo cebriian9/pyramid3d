@@ -137,16 +137,16 @@
                 </a>
                 <ul class="flex flex-wrap items-center mb-6 text-lg font-medium  sm:mb-0 ">
                     <li>
-                        <a href="#" class="mr-4 hover:underline md:mr-6 ">About</a>
+                        <a href="{{ route('sobreNosotros') }}" class="mr-4 hover:underline md:mr-6 ">Sobre nosotros</a>
                     </li>
                     <li>
-                        <a href="#" class="mr-4 hover:underline md:mr-6">Privacy Policy</a>
+                        <a href="{{ route('privacidad') }}" class="mr-4 hover:underline md:mr-6">Politicas de privacidad</a>
                     </li>
                     <li>
-                        <a href="#" class="mr-4 hover:underline md:mr-6 ">Licensing</a>
+                        <a href="{{ route('faqs') }}" class="mr-4 hover:underline md:mr-6 ">FAQs</a>
                     </li>
                     <li>
-                        <a href="#" class="hover:underline">Contact</a>
+                        <a href="{{ route('contacto') }}" class="hover:underline">Contacto</a>
                     </li>
                 </ul>
             </div>
