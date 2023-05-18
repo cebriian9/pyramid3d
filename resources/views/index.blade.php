@@ -3,7 +3,7 @@
 @section('tittle', 'inicio')
 
 @section('contenido')
-
+<meta name="description" content="Comienza ya a darle forma a tus ideas">
 <style>
     .bg-cabecera {
         background-image: url({{ URL::asset('imagenes/cabecera.jpg')}});

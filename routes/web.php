@@ -25,10 +25,10 @@ Route::get('/', IndexController::class)->name('index');
 Route::get('pruebas', [IndexController::class,'pruebas'])->name('pruebas');
 
 //admins
-Route::get('admin/pedidos',[adminController::class,'adminIndex'])->name('pedidos')->middleware('auth');//que no entre cualquira
-Route::get('admin/pedidos/download/{id}',[adminController::class,'downloadFile'])->name('descarga')->middleware('auth');
-Route::post('admin/pedidos/update', [adminController::class,'updatePedido'])->name('updatePedido');
-Route::get('admin/datosPedido/{id}',[adminController::class,'datosPedido'])->name('datosPedido');
+Route::get('admin/pedidos',[adminController::class,'adminIndex'])->name('pedidos')->middleware('auth')->middleware('admin');//que no entre cualquira
+Route::get('admin/pedidos/download/{id}',[adminController::class,'downloadFile'])->name('descarga')->middleware('auth')->middleware('admin');
+Route::post('admin/pedidos/update', [adminController::class,'updatePedido'])->name('updatePedido')->middleware('admin');
+Route::get('admin/datosPedido/{id}',[adminController::class,'datosPedido'])->name('datosPedido')->middleware('admin');
 
 //cuenta
 Route::get('cuenta', [cuentaController::class,'cuentaIndex'])->name('cuenta')->middleware('auth');
