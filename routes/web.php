@@ -3,6 +3,7 @@
 use App\Http\Controllers\adminController;
 use App\Http\Controllers\crearPedidosControlle;
 use App\Http\Controllers\cuentaController;
+use App\Http\Controllers\enlacesController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\sesionController;
 use Illuminate\Support\Facades\Route;
@@ -24,10 +25,10 @@ Route::get('/', IndexController::class)->name('index');
 Route::get('pruebas', [IndexController::class,'pruebas'])->name('pruebas');
 
 //admins
-Route::get('admin/pedidos',[adminController::class,'adminIndex'])->name('pedidos')->middleware('auth');//que no entre cualquira
-Route::get('admin/pedidos/download/{id}',[adminController::class,'downloadFile'])->name('descarga')->middleware('auth');
-Route::post('admin/pedidos/update', [adminController::class,'updatePedido'])->name('updatePedido');
-Route::get('admin/datosPedido/{id}',[adminController::class,'datosPedido'])->name('datosPedido');
+Route::get('admin/pedidos',[adminController::class,'adminIndex'])->name('pedidos')->middleware('auth')->middleware('admin');//que no entre cualquira
+Route::get('admin/pedidos/download/{id}',[adminController::class,'downloadFile'])->name('descarga')->middleware('auth')->middleware('admin');
+Route::post('admin/pedidos/update', [adminController::class,'updatePedido'])->name('updatePedido')->middleware('admin');
+Route::get('admin/datosPedido/{id}',[adminController::class,'datosPedido'])->name('datosPedido')->middleware('admin');
 
 //cuenta
 Route::get('cuenta', [cuentaController::class,'cuentaIndex'])->name('cuenta')->middleware('auth');
@@ -63,3 +64,8 @@ Route::post('registro/inicioSesion',[sesionController::class,'inicioSesion'])->n
 Route::get('registro/logOut',[sesionController::class,'logOut'])->name('logOut');
 
 
+//copsitas que poca gente usa
+Route::get('preguntas_frecuentes',[enlacesController::class,'faqs'])->name('faqs');
+Route::get('sobreNosotros',[enlacesController::class,'sobreNosotros'])->name('sobreNosotros');
+Route::get('privacidad',[enlacesController::class,'privacidad'])->name('privacidad');
+Route::get('contacto',[enlacesController::class,'contacto'])->name('contacto');
