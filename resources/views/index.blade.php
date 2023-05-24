@@ -1,6 +1,6 @@
 @extends('layout.formato')
 
-@section('tittle', 'inicio')
+@section('tittle', 'Pyramid3D')
 
 @section('contenido')
 <meta name="description" content="Comienza ya a darle forma a tus ideas">
