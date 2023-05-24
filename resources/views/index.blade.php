@@ -124,7 +124,7 @@
     </div>
 
     <!--2-section-->
-    <div class="container bg-claro rounded-xl md:w-3/4 lg:w-3/5 p-10 pb-14 mt-10 mb-24">
+    <div class="container bg-claro rounded-xl md:w-3/4 lg:w-3/5 p-5 sm:p-10 pb-14 mt-10 mb-24">
         <nav class="text-center mb-10">
             <h3 class=" font-bold tracking-tight text-4xl ">Principales usos</h3>
         </nav>
