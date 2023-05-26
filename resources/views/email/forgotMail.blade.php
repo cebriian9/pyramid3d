@@ -14,7 +14,7 @@
         <p style="font-weight: 600; margin-bottom: 30px;">
             Hola, {{$user->usuario}}, haz click en el boton para restaurar la contraseña:
         </p>
-        <a href="http://127.0.0.1:8000/sesiones/forgotPassword/{{$user->forgot}}"
+        <a href="https://pyramid3d.app/sesiones/forgotPassword/{{$user->forgot}}"
             style=" margin-bottom: 30px;--tw-bg-opacity: 1; background-color: #ff6f00; padding: 10px; font-size: 1.25rem; line-height: 1.75rem; border-radius: 9999px; width: 100%;text-decoration: none; color: #fff1e5;">
             Restaurar contraseña
         </a>
