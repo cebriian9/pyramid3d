@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('material');
             $table->string('relleno');
             $table->string('calidad');
-            $table->string('tamano')->nullable();
+            $table->string('tamano');
+            $table->string('precio');
             $table->string('nombreArchivo');
             $table->string('pathArchivo');
             $table->boolean('hecho');

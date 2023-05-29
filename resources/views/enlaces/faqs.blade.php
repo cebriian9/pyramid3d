@@ -4,7 +4,7 @@
 
 @section('contenido')
 
-<div class="container bg-claro rounded-xl md:w-3/4 lg:w-3/5 p-4 sm:p-20 my-10">
+<div class="container bg-claro rounded-xl md:w-3/4 lg:w-3/5 p-7 sm:p-20 my-10">
     <div class="flex justify-center">
         <h2 class="text-2xl">Preguntas frecuentes</h2>
     </div>

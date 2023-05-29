@@ -28,7 +28,7 @@ class crearPedidosControlle extends Controller
 
         $request->validate([
             'stlFile' => 'required|file|max:10240',
-            'tamaño' => 'min:10|max:250',
+            'tamaño' => 'required|min:10|max:250',
         ], [], $customAttributes);
 
 
