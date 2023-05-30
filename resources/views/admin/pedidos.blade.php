@@ -40,6 +40,9 @@
                         Tamaño
                     </th>
                     <th scope="col" class="px-6 py-3">
+                        Precio
+                    </th>
+                    <th scope="col" class="px-6 py-3">
                         Archivo
                     </th>
                     <th scope="col" class="px-6 py-3">
@@ -78,6 +81,9 @@
                         </td>
                         <td class="px-6 py-4">
                             {{ $pedido->tamano }}mm
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ $pedido->precio }}€
                         </td>
                         <td class="px-6 py-4">
                             {{ $pedido->nombreArchivo }}

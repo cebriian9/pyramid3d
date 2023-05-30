@@ -180,7 +180,9 @@
                         <label for="tamano" class="block text-2xl font-semibold ">Tamaño:</label>
                         <input type="number" id="tamano" name="tamano" placeholder="(10-250)mm" max="250" min="10"
                             class="bg-gray-50 border border-gray-300  text-sm rounded-lg block w-full p-2.5 " required>
-                        <p class="text-sm text-gray-500">*Dejar vacio para usar el tamaño original de tu diseño</p>
+                            @error('tamano')
+                            <span class="text-danger">*{{ $message }}</span>
+                            @enderror
                     </div>
 
 
@@ -199,8 +201,11 @@
 
 
                     <div>
-                        <span class="text-xl font-semibold ">Precio: <span><input type="text" name="precio" id="precio">
-                            </span>
+                        <span class="text-xl font-semibold flex">
+                            Precio:
+
+                            <input type="text" name="precio" id="precio" class="w-auto">
+
                             €
                         </span>
                     </div>
@@ -400,6 +405,9 @@
 
         //-------------precio----------
         document.addEventListener("DOMContentLoaded", function () {
+
+
+
             const inpPrecio = document.getElementById("precio");
             const material = document.getElementById("material");
             const tamaño = document.getElementById("tamano");
@@ -407,14 +415,19 @@
             const radiosRelleno = document.querySelectorAll('input[name="relleno"]');
             const radiosCalidad = document.querySelectorAll('input[name="calidad"]');
 
+
+            let relleno
             function handleRellenoChange(event) {
-                const valor = event.target.value;
-                actualizarPrecio("relleno",valor)
+                relleno = event.target.value;
+                actualizarPrecio()
             }
 
+
+            let calidad
             function handleCalidadChange(event) {
-                const valor = event.target.value;
-                actualizarPrecio("calidad",valor)
+                calidad = event.target.value;
+                actualizarPrecio()
+
             }
 
             radiosRelleno.forEach(radio => {
@@ -425,18 +438,70 @@
                 radio.addEventListener('change', handleCalidadChange);
             });
 
-            material.addEventListener("change",function () {
-                actualizarPrecio("material",material.value)
+            material.addEventListener("change", function () {
+                actualizarPrecio()
             })
 
-            tamano.addEventListener("change",function () {
-                actualizarPrecio("tamano",tamano.value)
+            tamano.addEventListener("keyup", function () {
+                actualizarPrecio()
             })
 
-            function actualizarPrecio(tipo,valor) {
-                console.log( tipo, valor);
+            function actualizarPrecio() {
 
-                swi
+                let precio = 5
+
+                //calculo de material, pla +0%, abs +3% ,ptg +2%
+
+                switch (material.value) {
+                    case "PLA":
+                        //precio = precio + (precio)
+                        break;
+                    case "ABS":
+                        precio = precio + (precio * 0.3)
+                        break;
+                    case "PTG":
+                        precio = precio + (precio * 0.2)
+                        break;
+
+                    default:
+                        break;
+                }
+
+                switch (relleno) {
+                    case "20-40":
+                        precio = precio - (precio * 0.3)
+                        break;
+                    case "50-70":
+
+                        break;
+                    case "90-100":
+                        precio = precio + (precio * 0.2)
+                        break;
+
+                    default:
+                        break;
+                }
+
+                switch (calidad) {
+                    case "01":
+                        precio = precio + (precio * 0.3)
+                        break;
+                    case "02":
+
+                        break;
+                    case "03":
+
+                        precio = precio - (precio * 0.3)
+                        break;
+
+                    default:
+                        break;
+                }
+
+                precio = precio + (precio + tamano.value / 10)
+
+                //console.log("precio", precio);
+                inpPrecio.value = precio.toFixed(2)
             }
 
 
