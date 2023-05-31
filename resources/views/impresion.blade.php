@@ -51,6 +51,14 @@
                                 </p>
 
                             </div>
+                            <!--Cargando-->
+                            <div class=" justify-center items-center gap-2 hidden" id="status-load">
+                                <span class='text-xl'>Cargando <i class='fa-solid fa-spinner' id='gira'></i></span>
+                            </div>
+                            <div class=" justify-center items-center gap-2 hidden" id="status-loaded">
+                                <span class='text-xl'>Todo listo <i class="fa-solid fa-check"></i></span>
+                            </div>
+                            <!--Cargando-->
                             <input id="inputFile" name="stlFile" type="file"
                                 class="hidden rounded-lg p-1 text-sm text-claro bg-secundario-50 cursor-pointer" />
                             @error('stlFile')
@@ -180,9 +188,9 @@
                         <label for="tamano" class="block text-2xl font-semibold ">Tamaño:</label>
                         <input type="number" id="tamano" name="tamano" placeholder="(10-250)mm" max="250" min="10"
                             class="bg-gray-50 border border-gray-300  text-sm rounded-lg block w-full p-2.5 " required>
-                            @error('tamano')
-                            <span class="text-danger">*{{ $message }}</span>
-                            @enderror
+                        @error('tamano')
+                        <span class="text-danger">*{{ $message }}</span>
+                        @enderror
                     </div>
 
 
@@ -225,27 +233,35 @@
         import { OrbitControls } from "{{ asset('js/OrbitControls.js') }}";
         import { STLLoader } from "{{ asset('js/STLLoader.js') }}";
 
-
-
+        //mensajes de carga
+        let status = document.getElementById('status-load')
+        let statusLoaded = document.getElementById('status-loaded')
 
         //ajax
         $(document).ready(function () {
             $("#inputFile").change(function () {
 
                 //var formData = new FormData($("#formulario")[0]);
+                //optengo el token para enviarlo
                 var token = $('meta[name="csrf-token"]').attr('content');
 
                 var archivo = document.getElementById('inputFile').files[0];
-                console.log();
+
                 if (archivo['name'].endsWith('.stl')) {
                     document.getElementById('errorSTL').innerHTML = ""
+
                     const xhr = new XMLHttpRequest();
                     const form = new FormData();
-                    //optengo el token para enviarlo
+
+                    //mensaje de carga
+                    status.classList.remove('hidden')
+                    status.classList.add('flex')
 
 
+
+                    //preparar el formulario ajax
                     form.append('archivo', archivo);
-                    form.append('_token', token);
+                    form.append('_token', token);//token de seguridad de laravel
                     xhr.open('POST', "{{ route('muestra3D') }}");
                     xhr.send(form);
 
@@ -257,6 +273,14 @@
                             const nuevaRuta = ruta.replace('public', 'storage');
 
                             cargarSTL(nuevaRuta)
+                            //eliminar mensaje de carga
+                            status.classList.remove('flex')
+                            status.classList.add('hidden')
+                            
+                            //todo correcto
+                            statusLoaded.classList.remove('hidden')
+                            statusLoaded.classList.add('flex')
+
                         }
                     };
                 } else {
@@ -287,21 +311,16 @@
             //renderer
             renderer = new THREE.WebGLRenderer();
             renderer.setSize((vista.offsetWidth - 4), (vista.offsetHeight - 4))
-            //poner el div que es en vez de body
+            //renderizar en el div que toca
             vista.appendChild(renderer.domElement);
 
             //scene.add(object);
 
-
-
-
-
-
             //controles
 
             let control = new OrbitControls(camera, renderer.domElement)
-            control.minDistance = 3
-            control.maxDistance = 10
+            control.minDistance = 2
+            control.maxDistance = 15
             //control.enablePan = false
 
             //luces
@@ -392,7 +411,7 @@
                 object.rotation.x = -Math.PI / 2;
                 scene.add(object);
             });
-            //cargar el stl
+            
         }
 
 
@@ -405,8 +424,6 @@
 
         //-------------precio----------
         document.addEventListener("DOMContentLoaded", function () {
-
-
 
             const inpPrecio = document.getElementById("precio");
             const material = document.getElementById("material");
@@ -449,8 +466,6 @@
             function actualizarPrecio() {
 
                 let precio = 5
-
-                //calculo de material, pla +0%, abs +3% ,ptg +2%
 
                 switch (material.value) {
                     case "PLA":
@@ -497,23 +512,42 @@
                     default:
                         break;
                 }
-
+                //tamaño
                 precio = precio + (precio + tamano.value / 10)
 
                 //console.log("precio", precio);
                 inpPrecio.value = precio.toFixed(2)
             }
 
-
-
             // Inicializar el precio
             actualizarPrecio();
         });
 
 
+        //--girar elemento----------------
+        // Función para hacer girar el elemento
+        function girarElemento() {
+            const elemento = document.getElementById("gira");
+            let grados = 0;
+            let velocidad = 1; // Ajusta la velocidad de la rotación aquí
 
+            
+            function rotar() {
+                grados += velocidad;
+                elemento.style.transform = `rotate(${grados}deg)`;
 
+                //reiniciar la rotación
+                if (grados >= 360) {
+                    grados = 0;
+                }
 
+                // Siguiente fotograma de animación
+                requestAnimationFrame(rotar);
+            }
+
+            rotar();
+        }
+        girarElemento();
     </script>
 
 </section>
