@@ -69,3 +69,5 @@ Route::get('preguntas_frecuentes',[enlacesController::class,'faqs'])->name('faqs
 Route::get('sobreNosotros',[enlacesController::class,'sobreNosotros'])->name('sobreNosotros');
 Route::get('privacidad',[enlacesController::class,'privacidad'])->name('privacidad');
 Route::get('contacto',[enlacesController::class,'contacto'])->name('contacto');
+
+Route::post('contacto',[adminController::class,'contacto'])->name('enviarMensaje');
