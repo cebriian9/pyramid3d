@@ -124,11 +124,13 @@
         </div>
     </nav>
     <!--//menu-->
-    @yield('contenido')
+    <div class="min-h-screen">
+        @yield('contenido')
+    </div>
 
     <!--footer-->
 
-    <footer class=" bg-gray-900 text-claro rounded-t-lg pb-28 sm:pb-0">
+    <footer class=" bg-gray-900 text-claro rounded-t-lg pb-28 sm:pb-0 ">
         <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
             <div class="sm:flex sm:items-center sm:justify-between">
                 <a href="{{ route('index') }}" class="flex items-center">
