@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 
+use Stripe\Stripe;
+use Stripe\Charge;
+
+
 class IndexController extends Controller
 {
     public function __invoke()
@@ -17,13 +21,23 @@ class IndexController extends Controller
 
     public function pruebas()
     {
-        $files = Storage::files('public/tmpStorage');
-        
-        foreach ($files as $file) {
-            $createdAt = Carbon::createFromTimestamp(Storage::lastModified($file));
-            if ($createdAt->addMinutes(1)->isPast()) {
-                Storage::delete($file);
-            }
-        }
+        return view('pruebas');
+    }
+
+    public function pago(Request $request)
+    {
+        //return $request;
+        Stripe::setApiKey(config('services.stripe.secret'));
+        $token = $request->stripeToken;
+
+        $charge = Charge::create([
+            'amount' => 200,
+            'currency' => 'eur',
+            'description' => 'Prueba PTM',
+            'source' => $token,
+            
+        ]);
+
+        return back();
     }
 }

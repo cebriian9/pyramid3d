@@ -20,81 +20,81 @@ class crearPedidosControlle extends Controller
 
     public function crearImpresion(Request $request)
     {
-        
+
         $customAttributes = [
             'stlFile' => 'Archivo',
             'tamano' => 'tamaño',
         ];
-        
+
         $request->validate([
             'stlFile' => 'required|file|max:10240',
             'tamano' => 'required|numeric|min:10|max:250',
         ], [], $customAttributes);
 
-        
 
-        
+
+
         $stl = $request->file('stlFile');
         $extension = $stl->getClientOriginalExtension();
 
 
-        
+
         if (!strcmp($extension, "stl")) {
             //calcular precio--
-            
+
             $precio = 5;
 
-                //calculo de material, pla +0%, abs +3% ,ptg +2%
+            //calculo de material, pla +0%, abs +3% ,ptg +2%
 
-                switch ($request->material) {
-                    case "PLA":
-                        //precio = precio + (precio)
-                        break;
-                    case "ABS":
-                        $precio = $precio + ($precio * 0.3);
-                        break;
-                    case "PTG":
-                        $precio = $precio + ($precio * 0.2);
-                        break;
+            switch ($request->material) {
+                case "PLA":
+                    //precio = precio + (precio)
+                    break;
+                case "ABS":
+                    $precio = $precio + ($precio * 0.3);
+                    break;
+                case "PTG":
+                    $precio = $precio + ($precio * 0.2);
+                    break;
 
-                    default:
-                        break;
-                }
+                default:
+                    break;
+            }
 
-                switch ($request->relleno) {
-                    case "20-40":
-                        $precio = $precio - ($precio * 0.3);
-                        break;
-                    case "50-70":
+            switch ($request->relleno) {
+                case "20-40":
+                    $precio = $precio - ($precio * 0.3);
+                    break;
+                case "50-70":
 
-                        break;
-                    case "90-100":
-                        $precio = $precio + ($precio * 0.2);
-                        break;
+                    break;
+                case "90-100":
+                    $precio = $precio + ($precio * 0.2);
+                    break;
 
-                    default:
-                        break;
-                }
+                default:
+                    break;
+            }
 
-                switch ($request->calidad) {
-                    case "01":
-                        $precio = $precio + ($precio * 0.3);
-                        break;
-                    case "02":
+            switch ($request->calidad) {
+                case "01":
+                    $precio = $precio + ($precio * 0.3);
+                    break;
+                case "02":
 
-                        break;
-                    case "03":
+                    break;
+                case "03":
 
-                        $precio = $precio - ($precio * 0.3);
-                        break;
+                    $precio = $precio - ($precio * 0.3);
+                    break;
 
-                    default:
-                        break;
-                }
+                default:
+                    break;
+            }
 
-                $precio = $precio + ($precio + $request->tamano / 10);
+            $precio = $precio + ($precio + $request->tamano / 10);
 
-                
+
             ///calcular precio--
 
             $pedido = new pedidos();
@@ -116,14 +116,56 @@ class crearPedidosControlle extends Controller
             $pedido->hecho = 0;
 
 
-            
+
             //a la base de datos y para casa
-            $pedido->save();
-            
-            return redirect()->back();
+            //$pedido->save();
+
+            return view('pagos/confirmarPago', compact('pedido'));
         } else {
             return redirect()->back()->withErrors(['stlFile' => 'El archivo tiene que ser .stl']);
         }
+    }
+
+    public function confirmarPago(Request $request)
+    {
+        $pedidoUsuario = json_decode($request->pedido);
+        //return $pedidoUsuario->material;
+        //return $request;
+        /*
+        Stripe::setApiKey(config('services.stripe.secret'));
+        $token = $request->stripeToken;
+
+        $charge = Charge::create([
+            'amount' => 200,
+            'currency' => 'eur',
+            'description' => 'Prueba PTM',
+            'source' => $token,
+            
+        ]);
+        */
+
+        $pedido = new pedidos();
+        $pedido->id_user = Auth::user()->id;
+        $pedido->material = $pedidoUsuario->material;
+        $pedido->relleno = $pedidoUsuario->relleno;
+        $pedido->calidad = $pedidoUsuario->calidad;
+        $pedido->tamano = $pedidoUsuario->tamano;
+        $pedido->precio = $pedidoUsuario->precio;
+        $pedido->nombreArchivo = $pedidoUsuario->nombreArchivo;
+        $pedido->pathArchivo = $pedidoUsuario->pathArchivo;
+        $pedido->hecho = 0;
+
+
+
+        //a la base de datos y para casa
+        $pedido->save();
+
+        return redirect()->route('confirmado');
+    }
+
+    public function confirmado()
+    {
+        return view('pagos.confirmado');
     }
 
 

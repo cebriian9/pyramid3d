@@ -20,9 +20,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('pruebas', [IndexController::class,'pruebas'])->name('pruebas');
+Route::post('pago', [IndexController::class,'pago'])->name('pago');
+
 
 Route::get('/', IndexController::class)->name('index');
-Route::get('pruebas', [IndexController::class,'pruebas'])->name('pruebas');
 
 //admins
 Route::get('admin/pedidos',[adminController::class,'adminIndex'])->name('pedidos')->middleware('auth')->middleware('admin');//que no entre cualquira
@@ -53,6 +55,10 @@ Route::get('sesiones/inicioSesion',[sesionController::class,'inicioSesionIndex']
 Route::get('/impresion',[crearPedidosControlle::class,'impresionIndex'])->name('impresion')->middleware('auth');
 //crear pedido
 Route::post('/impresion',[crearPedidosControlle::class,'crearImpresion'])->name('crearImpresion')->middleware('auth');
+//pagar pedido--
+Route::post('/confirmarPago',[crearPedidosControlle::class,'confirmarPago'])->name('confirmarPago')->middleware('auth');
+//pago confrimado y pedido echo
+Route::get('/confirmado',[crearPedidosControlle::class,'confirmado'])->name('confirmado')->middleware('auth');
 //visor 3D
 Route::post('/muestra3D',[crearPedidosControlle::class,'muestra3D'])->name('muestra3D');
 
