@@ -131,18 +131,18 @@ class crearPedidosControlle extends Controller
         $pedidoUsuario = json_decode($request->pedido);
         //return $pedidoUsuario->material;
         //return $request;
-        /*
+        
         Stripe::setApiKey(config('services.stripe.secret'));
         $token = $request->stripeToken;
 
         $charge = Charge::create([
-            'amount' => 200,
+            'amount' => ($pedidoUsuario->precio*100),
             'currency' => 'eur',
-            'description' => 'Prueba PTM',
+            'description' => Auth::user()->id." ".Auth::user()->usuario.'Prueba PTM',
             'source' => $token,
             
         ]);
-        */
+        
 
         $pedido = new pedidos();
         $pedido->id_user = Auth::user()->id;
