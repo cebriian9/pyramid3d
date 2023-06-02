@@ -5,7 +5,7 @@
 @section('contenido')
 <div class="container bg-claro rounded-xl md:w-3/4 lg:w-3/5 md:p-10 p-14 mt-10 mb-24">
 
-    <div class="flex items-center flex-col gap-2">
+    <div class="flex items-center flex-col  gap-5 ">
         <h2 class="font-bold text-2xl">Pedido Confirmado</h2>
         <i class="fa-solid fa-circle-check text-turquoise-400 text-5xl"></i>
         <a href="{{route('index')}}">
