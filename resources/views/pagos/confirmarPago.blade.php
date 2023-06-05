@@ -38,13 +38,13 @@
     <div class="hidden md:flex justify-center ">
         <hr class="h-px w-2/3 my-8 bg-gray-200 border-primario ">
     </div>
-    <h3 class="font-medium text-2xl text-center">Datos del pago:</h3>
+    <h3 class="font-medium text-2xl text-center"><i class="fa-solid fa-credit-card"></i> Datos del pago :</h3>
 
-    <form id="payment-form" action="{{ route('confirmarPago') }}" method="post" class="flex flex-row  justify-center gap-4">
+    <form id="payment-form" action="{{ route('confirmarPago') }}" method="post" class="flex flex-col lg:flex-row  justify-center gap-4">
         @csrf
         <input type="text" name="pedido" value="{{ $pedido }}" hidden>
         <div>
-            <div id="card-element" class="bg-gray-50 rounded-lg p-3 m-3 w-96">
+            <div id="card-element" class="bg-gray-50 rounded-lg p-3 m-3 lg:w-80">
                 <!-- Stripe.js insertará el elemento de la tarjeta aquí -->
             </div>
             
@@ -61,7 +61,9 @@
 
     </div>
 
-    
+    <div class="flex justify-end items-center gap-3 mt-6">
+        <p class="font-semibold">Pago seguro</p> <i class="fa-solid fa-lock"></i>
+    </div>
 </div>
 
 

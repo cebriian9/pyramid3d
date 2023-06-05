@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-
+use Stripe\Stripe;
+use Stripe\Charge;
 
 class crearPedidosControlle extends Controller
 {
@@ -138,7 +139,7 @@ class crearPedidosControlle extends Controller
         $charge = Charge::create([
             'amount' => ($pedidoUsuario->precio*100),
             'currency' => 'eur',
-            'description' => Auth::user()->id." ".Auth::user()->usuario.'Prueba PTM',
+            'description' => Auth::user()->id."-".Auth::user()->usuario.', Impresion de: '.$pedidoUsuario->nombreArchivo,
             'source' => $token,
             
         ]);
