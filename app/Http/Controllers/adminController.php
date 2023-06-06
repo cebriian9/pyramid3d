@@ -14,8 +14,8 @@ class adminController extends Controller
 {
     public function adminIndex()
     {
-        //$pedidos = pedidos::paginate(10);
 
+        //extrameos todos los pedidos y sustituimos el id del usuario por su nombre 
         $pedidos = DB::table('pedidos')
             ->join('usuarios', 'usuarios.id', '=', 'pedidos.id_user')
             ->select('pedidos.*', 'usuarios.usuario')
@@ -27,6 +27,7 @@ class adminController extends Controller
 
     public function updatePedido(Request $request)
     {
+        //peticion ajax, para marcar como hecho el pedido
         $pedido = pedidos::find($request->id);
         $pedido->hecho = !$pedido->hecho;
         $pedido->save();
@@ -37,7 +38,7 @@ class adminController extends Controller
     public function downloadFile($id)
     {
         $pedido = pedidos::find($id);
-        //return $pedido->material;
+
 
         if ($pedido) {
             //existe
@@ -50,6 +51,7 @@ class adminController extends Controller
 
     public function datosPedido($id)
     {
+        //extramos todos los datos del pedido por su id y los del usuario que lo ha realizado 
         $pedido = pedidos::find($id);
         $user = User::find($pedido->id_user);
 
@@ -59,22 +61,21 @@ class adminController extends Controller
     public function contacto(Request $request)
     {
         //pyramid3d.soporte@gmail.com
-        $asunto=$request->asunto;
-        $usuario=$request->usuario;
+        $asunto = $request->asunto;
+        $usuario = $request->usuario;
 
-        
+
 
         if (!empty($asunto) && !empty($usuario) && !empty($request->mensaje)) {
             // Enviar el correo
-        Mail::raw($request->mensaje, function ($message) use ($asunto,$usuario) {
-            $message->to('pyramid3d.soporte@gmail.com');
-            $message->subject($usuario.", ".$asunto);
-        });
+            Mail::raw($request->mensaje, function ($message) use ($asunto, $usuario) {
+                $message->to('pyramid3d.soporte@gmail.com');
+                $message->subject($usuario . ", " . $asunto);
+            });
 
-        return redirect()->back()->with('enviado', 'Correo enviado exitosamente');
+            return redirect()->back()->with('enviado', 'Correo enviado exitosamente');
         } else {
             return redirect()->back()->with('fallo', 'Rellene todos los campos*');
         }
-        
     }
 }

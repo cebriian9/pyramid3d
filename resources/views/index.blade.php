@@ -35,6 +35,17 @@
             height: 400px;
         }
     }
+
+    .notificacion {
+    position: fixed;
+    top: 100px;
+    right: 1%;
+    
+    
+}
+
+
+
 </style>
 <!--cabecera-->
 <div class="h-96 bg-cabecera">
@@ -44,11 +55,11 @@
             Comienza ya a darle forma a tus ideas
         </h1>
 
-        <a href="@auth {{route('impresion')}} @else {{route('registro')}} @endauth"
+        <a href="@auth {{ route('impresion') }} @else {{ route('registro') }} @endauth"
             class="text-lg md:text-xl lg:text-2xl">
             <button type="button"
                 class="text-white bg-secundario-50 hover:bg-secundario-100  font-semibold rounded-lg px-32 md:px-52  py-2  md:mr-0 hidden sm:block">
-                Comenzar
+                ¡Comienza a Imprimir!
             </button>
         </a>
 
@@ -65,13 +76,13 @@
     <!--1-section-->
     <div class="container bg-claro rounded-xl md:w-3/4 lg:w-3/5 p-10 pb-14 mt-10">
         <span class="flex justify-center mb-10">
-            <h1 class=" text-lg md:text-2xl lg:text-4xl font-bold mx-6  rounded-md p-2 ">¡Imprime lo que
+            <h1 class=" text-lg md:text-2xl lg:text-4xl font-semibold mx-6  rounded-md p-2 ">¡Imprime lo que
                 quieras!</h1>
         </span>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
             <div class="order-2 md:order-1 flex justify-center">
                 <!--foto-->
-                <img src="{{URL::asset('imagenes/section.index.jpg')}}" class="section-index h-full rounded-lg"
+                <img src="{{ URL::asset('imagenes/section.index.jpg') }}" class="section-index h-full rounded-lg"
                     alt="section-index">
             </div>
             <div class="order-1 md:order-2">
@@ -114,10 +125,11 @@
 
     <div class="container text-claro flex justify-center my-20">
 
-        <a href="@auth{{route('impresion')}}@else{{route('registro')}}@endauth" class="text-lg md:text-xl lg:text-2xl">
+        <a href="@auth{{ route('impresion') }}@else{{ route('registro') }} @endauth"
+            class="text-lg md:text-xl lg:text-2xl">
             <button type="button"
                 class="text-white bg-secundario-50 hover:bg-secundario-100  font-semibold rounded-lg px-32 md:px-52  py-2  md:mr-0 hidden sm:block">
-                Comenzar
+                ¡Comienza a Imprimir!
             </button>
         </a>
 
@@ -126,7 +138,7 @@
     <!--2-section-->
     <div class="container bg-claro rounded-xl md:w-3/4 lg:w-3/5 p-5 sm:p-10 pb-14 mt-10 mb-24">
         <nav class="text-center mb-10">
-            <h3 class=" font-bold tracking-tight text-4xl ">Principales usos</h3>
+            <h3 class=" font-semibold tracking-tight text-4xl ">Principales usos</h3>
         </nav>
         <div class=" grid grid-cols-1 md:grid-cols-2 gap-5">
 
@@ -169,6 +181,26 @@
     </div>
     <!--2-section-->
 
+    <div class="container text-claro flex justify-center my-20">
+
+        <a href="@auth{{ route('impresion') }}@else{{ route('registro') }} @endauth"
+            class="text-lg md:text-xl lg:text-2xl">
+            <button type="button"
+                class="text-white bg-secundario-50 hover:bg-secundario-100  font-semibold rounded-lg px-32 md:px-52  py-2  md:mr-0 hidden sm:block">
+                ¡Comienza a Imprimir!
+            </button>
+        </a>
+
+    </div>
+
+    <div class="container bg-claro rounded-xl md:w-3/4 lg:w-3/5 p-5 sm:p-10 pb-14 mt-10 mb-24">
+        <nav class="text-center mb-10">
+            <h3 class=" font-semibold tracking-tight text-4xl ">Principales usos</h3>
+        </nav>
+    </div>
+
+    <!--  -->
+
 
 </section>
 
@@ -181,5 +213,30 @@
         </button>
     </a>
 </nav>
+
+<!--notificacion-->
+@if (!Auth::user()->direccion)
+
+<div id="notificacion" class="notificacion bg-primario text-coral-50 p-3 border border-coral-50 rounded-lg">
+    <nav class="flex justify-between">
+        <h4 class="font-semibold">Complete su perfil</h4>
+        <button id="cerrar-notificacion" class="cerrar-notificacion"><i class="fa-solid fa-x"></i></button>
+    </nav>
+    <p>Tu dirección está vacía. Por favor, actualízala en tu perfil o pinche <a href="{{ route('cuenta') }}" class="text-secundario-50">AQUI</a>.</p>
+    
+</div>
+@endif
+
+
+<script>
+    // Obtener referencia al botón de cerrar y a la notificación
+    var cerrarBtn = document.getElementById('cerrar-notificacion');
+    var notificacion = document.getElementById('notificacion');
+
+    // Agregar evento clic al botón de cerrar
+    cerrarBtn.addEventListener('click', function() {
+        notificacion.style.display = 'none'; // Ocultar la notificación
+    });
+</script>
 
 @endsection
