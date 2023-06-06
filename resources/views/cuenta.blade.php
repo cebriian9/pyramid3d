@@ -4,6 +4,18 @@
 
 @section('contenido')
 
+<style>
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+</style>
+
 <div class="container bg-claro rounded-xl md:w-3/4 lg:w-3/5 md:p-10 pb-14 mt-10 mb-24">
     <span class="flex justify-center text-2xl font-semibold items-baseline gap-2">
         <i class="fa-solid fa-user mt-10 md:mt-0"></i>Ajustes

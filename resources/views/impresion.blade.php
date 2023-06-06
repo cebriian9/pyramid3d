@@ -3,7 +3,17 @@
 @section('tittle', 'impresion')
 
 @section('contenido')
+<style>
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
 
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+</style>
 
 
 
@@ -209,13 +219,10 @@
 
 
                     <div>
-                        <span class="text-xl font-semibold flex">
-                            Precio:
-
-                            <input type="text" name="precio" id="precio" class="w-auto">
-
-                            €
+                        <span class="text-xl font-semibold ">
+                            Precio unitario:<input type="text" name="precio" id="precio" class="ml-2 w-14">€
                         </span>
+                        <p class="text-sm text-gray-500"><i class="fa-regular fa-circle-question"></i>El precio mostrado es el precio por cada unidad</p>
                     </div>
                 </div>
                 <!--//form lateral-->
