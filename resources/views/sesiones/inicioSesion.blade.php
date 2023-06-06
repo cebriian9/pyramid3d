@@ -19,7 +19,7 @@
                 <label for="usuario"
                     class="block ">Usuario</label>
 
-                <input type="usuario" name="usuario" id="usuario" value="{{ old('usuario') }}"
+                <input type="text" name="usuario" id="usuario" value="{{ old('usuario') }}"
                     class="rounded-xl p-1 text-primario w-full">
                 @error('usuario')
                 <span class="text-danger">*{{ $message }}</span>
@@ -32,7 +32,7 @@
                 </label>
                     
 
-                <input type="usuario" name="password" id="password" value="{{ old('password') }}"
+                <input type="password" name="password" id="password" value="{{ old('password') }}"
                     class="rounded-xl p-1 text-primario w-full">
                 @error('password')
                 <span class="text-danger">*{{ $message }}</span>

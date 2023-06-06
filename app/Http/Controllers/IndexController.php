@@ -19,25 +19,11 @@ class IndexController extends Controller
     }
 
 
+    //entorno de pruebas
     public function pruebas()
     {
         return view('pruebas');
     }
 
-    public function pago(Request $request)
-    {
-        //return $request;
-        Stripe::setApiKey(config('services.stripe.secret'));
-        $token = $request->stripeToken;
-
-        $charge = Charge::create([
-            'amount' => 200,
-            'currency' => 'eur',
-            'description' => 'Prueba PTM',
-            'source' => $token,
-            
-        ]);
-
-        return back();
-    }
+    
 }

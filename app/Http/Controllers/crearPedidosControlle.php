@@ -21,12 +21,13 @@ class crearPedidosControlle extends Controller
 
     public function crearImpresion(Request $request)
     {
-
+        
         $customAttributes = [
             'stlFile' => 'Archivo',
             'tamano' => 'tamaño',
         ];
 
+        //validamos que todo este y los tamaños no se modificaran
         $request->validate([
             'stlFile' => 'required|file|max:10240',
             'tamano' => 'required|numeric|min:10|max:250',
@@ -34,18 +35,19 @@ class crearPedidosControlle extends Controller
 
 
 
-
+        //extrameos el nombre original del archivo del cliente
         $stl = $request->file('stlFile');
         $extension = $stl->getClientOriginalExtension();
 
 
 
         if (!strcmp($extension, "stl")) {
+            //si todo esta correcto y por ultimo el arcchivo es un .stl
             //calcular precio--
 
             $precio = 5;
 
-            //calculo de material, pla +0%, abs +3% ,ptg +2%
+            //calculo de material, pla +0%, abs +30% ,ptg +20%
 
             switch ($request->material) {
                 case "PLA":
@@ -62,6 +64,7 @@ class crearPedidosControlle extends Controller
                     break;
             }
 
+            //calculo de relleno, 20-40 -30%, 50-70 +0%, 90-100 +20%
             switch ($request->relleno) {
                 case "20-40":
                     $precio = $precio - ($precio * 0.3);
@@ -77,6 +80,7 @@ class crearPedidosControlle extends Controller
                     break;
             }
 
+            //calculo de calidad, 01 +30%, 02 +0%, 03 -30%
             switch ($request->calidad) {
                 case "01":
                     $precio = $precio + ($precio * 0.3);
@@ -93,15 +97,17 @@ class crearPedidosControlle extends Controller
                     break;
             }
 
+            //precio + tamaño/10
             $precio = $precio + ($precio + $request->tamano / 10);
 
 
-            ///calcular precio--
+            //creamos el pedido
 
             $pedido = new pedidos();
 
             $file = $request->file('stlFile');
 
+            //ponemos un nombre unico
             $nombreArchivo = time() . "-" . $file->getClientOriginalName();
             $pathArchivo = $request->file('stlFile')->storeAs('public', $nombreArchivo);
 
@@ -116,11 +122,8 @@ class crearPedidosControlle extends Controller
             $pedido->pathArchivo = $pathArchivo;
             $pedido->hecho = 0;
 
-
-
-            //a la base de datos y para casa
-            //$pedido->save();
-
+            //lo enviamos a la siguite vista para comfirmacion de pago
+            
             return view('pagos/confirmarPago', compact('pedido'));
         } else {
             return redirect()->back()->withErrors(['stlFile' => 'El archivo tiene que ser .stl']);
@@ -129,22 +132,23 @@ class crearPedidosControlle extends Controller
 
     public function confirmarPago(Request $request)
     {
+        //recibimos pedido
         $pedidoUsuario = json_decode($request->pedido);
-        //return $pedidoUsuario->material;
-        //return $request;
         
+        //creamos el pago
         Stripe::setApiKey(config('services.stripe.secret'));
         $token = $request->stripeToken;
 
+        //ponemos los datos del pago
         $charge = Charge::create([
-            'amount' => ($pedidoUsuario->precio*100),
+            'amount' => ($pedidoUsuario->precio*100),//*100 por que stripe lo pone en centimos 2=2 centimos
             'currency' => 'eur',
-            'description' => Auth::user()->id."-".Auth::user()->usuario.', Impresion de: '.$pedidoUsuario->nombreArchivo,
+            'description' => Auth::user()->id."-".Auth::user()->usuario.', Impresion de: '.$pedidoUsuario->nombreArchivo,//datos del usuario y que imprimio 
             'source' => $token,
             
         ]);
         
-
+        //creamos el pedido para la base de datos
         $pedido = new pedidos();
         $pedido->id_user = Auth::user()->id;
         $pedido->material = $pedidoUsuario->material;
@@ -166,13 +170,14 @@ class crearPedidosControlle extends Controller
 
     public function confirmado()
     {
+        //vista de pedido realizado
         return view('pagos.confirmado');
     }
 
 
     public function muestra3D(Request $request)
     {
-
+        //buscar el archivo que nos piden y enviarlo por ajax
         $file = $request->file('archivo');
         $ruta = $file->storeAs('public/tmpStorage', time() . "-" . Auth::user()->usuario);
 

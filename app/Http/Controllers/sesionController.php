@@ -29,6 +29,8 @@ class sesionController extends Controller
             'password2' => 'confirmar contraseña',
         ];
 
+
+        //validacion de las credenciales
         $request->validate([
             'usuario' => 'required|min:3|max:25|unique:usuarios,usuario',
             'email' => 'required|unique:usuarios,email|email',
@@ -43,7 +45,7 @@ class sesionController extends Controller
                     ->uncompromised(),
             ],
             'password2' => 'required|same:password'
-        ]);
+        ], [], $customAttributes);
 
         //creo el objeto usuario 
         $user = new User();
@@ -53,7 +55,7 @@ class sesionController extends Controller
         //contraseña se cifran en el modelo user
         $user->password = $request->password;
 
-        //$user=User::create([$request->all()]);
+        
 
         //a la base de datos y para casa
         $user->save();
@@ -74,13 +76,16 @@ class sesionController extends Controller
             'usuario' => $request->usuario,
             'password' => $request->password
         ];
-
+        //matener sesion iniciada
         $remember = ($request->has('remember') ? true : false);
 
+
         if (Auth::attempt($credenciales, $remember)) {
+            //logueado
             $request->session()->regenerate();
             return redirect()->intended(route('index'));
         } else {
+            //fallo
             return redirect()->back()->with('error', 'Credenciales inválidas');
         }
 
@@ -105,32 +110,40 @@ class sesionController extends Controller
 
     public function forgot(Request $request)
     {
+        
         $request->validate([
             'email' => 'required'
         ]);
 
         $user = User::where('email', $request->email)->first();
-
+        //validamos el correo que nos dan
+        //y creamos un codigo unico para despues saber a quien resetear la contraseña
         if ($user) {
             $codigoSecreto = time() . $request->email;
             $user->forgot = $codigoSecreto;
             $user->save();
+
+            //una vez creado se le envia por correo
             $correo = new forgotMailable($user);
             Mail::to($user->email)->send($correo);
             return view('sesiones/enviado');
         } else {
+            //error
             return redirect()->back()->with('error', 'Ese email no existe');
         }
     }
 
     public function forgotResetIndex($codigo)
     {
+        
         return view('sesiones/forgotReset', compact('codigo'));
         
     }
 
     public function forgotReset(Request $request)
-    {
+    {   
+
+        //re-validamos la contraseña nueva 
         $request->validate([
             'password' => [
                 'required',
@@ -145,8 +158,10 @@ class sesionController extends Controller
             'password2' => 'required|same:password'
         ]);
         
+        //conprobamos quien es el dueño del codigo 
         $user = User::where('forgot', $request->codigo)->first();
         
+        //cambiamos su contraseña y se borra el codigo
         $user->password=$request->password;
         $user->forgot=null;
         $user->save();
