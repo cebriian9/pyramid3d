@@ -19,7 +19,7 @@
 
             <li class="text-xl font-medium">¿Cuáles son los materiales disponibles para la impresión 3D?</li>
             <p class="-mt-5">
-                Ofrecemos una amplia gama de materiales, incluyendo PLA, ABS, PETG, nylon y resinas. Cada material tiene
+                Ofrecemos una amplia gama de materiales, incluyendo PLA, ABS y PETG. Cada material tiene
                 sus propias características y propiedades, y podemos asesorarte para elegir el más adecuado para tu
                 proyecto.
             </p>
@@ -27,14 +27,13 @@
             <li class="text-xl font-medium">¿Puedo enviar mis propios diseños para imprimir?</li>
             <p class="-mt-5">
                 ¡Por supuesto! Aceptamos archivos en formato STL. Solo asegúrate de revisar
-                nuestras pautas de diseño para garantizar una impresión exitosa.
+                que el diseño no tiene fallos para garantizar una impresión exitosa.
             </p>
 
             <li class="text-xl font-medium">¿Cuál es su política de devoluciones y reembolsos?</li>
             <p class="-mt-5">
                 Si recibes una impresión defectuosa o dañada, contáctanos dentro de los 7 días posteriores a la entrega
-                para solicitar un reemplazo o un reembolso. Consulta nuestra política completa de devoluciones en
-                nuestra página de términos y condiciones.
+                para solicitar un reemplazo o un reembolso.
             </p>
 
             <li class="text-xl font-medium">¿Puedo realizar pedidos personalizados en grandes cantidades?</li>
@@ -45,8 +44,7 @@
 
             <li class="text-xl font-medium">¿Cómo puedo hacer seguimiento de mi pedido?</li>
             <p class="-mt-5">
-                Una vez que tu pedido haya sido enviado, recibirás un correo electrónico con un enlace de seguimiento.
-                Podrás rastrear el estado y la ubicación de tu paquete utilizando ese enlace.
+                Una vez que tu pedido haya sido fabricado y enviado, cambiara su estado en tu registro de pedidos en tu perfil y podras ver cuando se te enviara.
             </p>
 
             <li class="text-xl font-medium">¿Qué métodos de pago aceptan?</li>

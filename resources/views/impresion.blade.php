@@ -21,7 +21,7 @@
         @if (!Auth::user()->nombre)
             <div id="notificacion" class="notificacion bg-primario text-coral-50 p-3 border border-coral-50 rounded-lg mb-8">
                 <nav class="flex justify-between">
-                    <h4 class="font-semibold">Complete su perfil</h4>
+                    <h4 class="font-semibold">Completa tu perfil</h4>
                 </nav>
                 <p>Tus datos de envio estan vacios. Por favor, actualízalos en tu perfil o pinche <a
                         href="{{ route('cuenta') }}" class="text-secundario-50">AQUI</a>.</p>

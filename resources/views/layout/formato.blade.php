@@ -52,7 +52,7 @@
                             <ul class="py-1 text-claro" role="none">
                                 <li>
                                     <a href="{{ route('cuenta') }}" class="block px-4 py-2 text-claro hover:bg-gray-800 "
-                                        role="menuitem">Ajustes</a>
+                                        role="menuitem">Perfil</a>
                                 </li>
 
                                 <li>
