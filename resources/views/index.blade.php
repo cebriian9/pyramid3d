@@ -37,15 +37,12 @@
     }
 
     .notificacion {
-    position: fixed;
-    top: 100px;
-    right: 1%;
-    
-    
-}
+        position: fixed;
+        top: 100px;
+        right: 1%;
 
 
-
+    }
 </style>
 <!--cabecera-->
 <div class="h-96 bg-cabecera">
@@ -76,7 +73,7 @@
     <!--1-section-->
     <div class="container bg-claro rounded-xl md:w-3/4 lg:w-3/5 p-10 pb-14 mt-10">
         <span class="flex justify-center mb-10">
-            <h1 class=" text-lg md:text-2xl lg:text-4xl font-semibold mx-6  rounded-md p-2 ">¡Imprime lo que
+            <h1 class=" text-3xl font-semibold mx-6  rounded-md p-2 ">¡Imprime lo que
                 quieras!</h1>
         </span>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -138,7 +135,7 @@
     <!--2-section-->
     <div class="container bg-claro rounded-xl md:w-3/4 lg:w-3/5 p-5 sm:p-10 pb-14 mt-10 mb-24">
         <nav class="text-center mb-10">
-            <h3 class=" font-semibold tracking-tight text-4xl ">Principales usos</h3>
+            <h3 class=" font-semibold tracking-tight text-3xl ">Principales usos</h3>
         </nav>
         <div class=" grid grid-cols-1 md:grid-cols-2 gap-5">
 
@@ -195,8 +192,29 @@
 
     <div class="container bg-claro rounded-xl md:w-3/4 lg:w-3/5 p-5 sm:p-10 pb-14 mt-10 mb-24">
         <nav class="text-center mb-10">
-            <h3 class=" font-semibold tracking-tight text-4xl ">Principales usos</h3>
+            <h3 class=" font-semibold tracking-tight text-3xl ">¿No tienes aun un modelo 3D?</h3>
         </nav>
+
+        <div class="bg-claro  rounded-lg  text-xl">
+
+            <div class=" p-4 pt-0 ">
+
+                <p class="mb-10 ">
+                    Descubre increíbles <span class="font-bold">diseños 3D </span> y aprovecha su diversa colección para
+                    potenciar tus pedidos aqui. Encuentra la inspiración que necesitas y lleva tus proyectos al
+                    siguiente nivel. ¿Listo para explorar? Haz clic aquí y accede a Thingiverse para descargar los
+                    modelos perfectos para tus pedidos.
+                </p>
+                <div class="flex justify-center">
+                    <a href="https://www.thingiverse.com/" target="_blank">
+                        <button style="background-color: #196ef0;" class="text-coral-50 p-3 px-4 rounded-lg">
+                            Explorar diseños 3D
+                            <p class="text-xs">Powered by <span style="color: #196ef0;" class="bg-coral-50 rounded-md p-0.5">thingiverse</span></p>
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!--  -->
@@ -215,16 +233,18 @@
 </nav>
 
 <!--notificacion-->
+@if (Auth::user())
 @if (!Auth::user()->direccion)
-
 <div id="notificacion" class="notificacion bg-primario text-coral-50 p-3 border border-coral-50 rounded-lg">
     <nav class="flex justify-between">
-        <h4 class="font-semibold">Complete su perfil</h4>
+        <h4 class="font-semibold">Completa tu perfil</h4>
         <button id="cerrar-notificacion" class="cerrar-notificacion"><i class="fa-solid fa-x"></i></button>
     </nav>
-    <p>Tu dirección está vacía. Por favor, actualízala en tu perfil o pinche <a href="{{ route('cuenta') }}" class="text-secundario-50">AQUI</a>.</p>
-    
+    <p>Tu dirección está vacía. Por favor, actualízala en tu perfil o pinche <a href="{{ route('cuenta') }}"
+            class="text-secundario-50">AQUI</a>.</p>
+
 </div>
+@endif
 @endif
 
 
@@ -234,7 +254,7 @@
     var notificacion = document.getElementById('notificacion');
 
     // Agregar evento clic al botón de cerrar
-    cerrarBtn.addEventListener('click', function() {
+    cerrarBtn.addEventListener('click', function () {
         notificacion.style.display = 'none'; // Ocultar la notificación
     });
 </script>

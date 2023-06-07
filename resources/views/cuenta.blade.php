@@ -17,15 +17,17 @@
     </style>
 
     <div class="container bg-claro rounded-xl md:w-3/4 lg:w-3/5 md:p-10 pb-14 mt-10 mb-24">
-        <span class="flex justify-center text-2xl font-semibold items-baseline gap-2">
-            <i class="fa-solid fa-user mt-10 md:mt-0"></i>Ajustes
+
+
+        <span class="flex justify-center items-center text-2xl font-semibold gap-2 mb-3">
+            <i class="fa-solid fa-user mt-10 md:mt-0"></i>Perfil
         </span>
 
-        <div class="grid grid-cols-1 xl:grid-cols-2">
+        <div class="grid grid-cols-1 xl:grid-cols-3">
 
 
             <!--datos y direcciones-->
-            <div class="flex flex-col gap-6 px-14">
+            <div class="flex flex-col gap-6 px-2">
 
                 <div
                     class="flex flex-col gap-1 bg-primario text-coral-50 p-3 border-solid border-2 border-coral-50 rounded-lg">
@@ -44,95 +46,93 @@
                     </nav>
                 </div>
 
-                <div class="flex flex-col gap-1">
-                    <div class="flex flex-col gap-3">
-                        <nav>
-                            <span id="direccion">
-                                @if (Auth::user()->direccion == null)
-                                    <div id="notificacion"
-                                        class="notificacion bg-primario text-coral-50 p-3 border border-coral-50 rounded-lg ">
-                                        <nav class="flex justify-between">
-                                            <h4 class="font-semibold">Complete su perfil</h4>
+
+                <div class="flex flex-col gap-3">
+                    <nav>
+                        <span id="direccion">
+                            @if (Auth::user()->direccion == null)
+                                <div id="notificacion"
+                                    class="notificacion bg-primario text-coral-50 p-3 border border-coral-50 rounded-lg ">
+                                    <nav class="flex justify-between">
+                                        <h4 class="font-semibold">Completa tu perfil</h4>
+                                    </nav>
+                                    <p>Tus datos de envio estan vacios. Por favor, actualízalos aqui abajo.</p>
+                                </div>
+                            @endif
+                        </span>
+                    </nav>
+                    <div class="flex justify-center xl:justify-start">
+                        <div id="accordion-collapse" data-accordion="collapse" class="">
+                            <h2 id="accordion-collapse-heading-1">
+                                <button type="button"
+                                    class="flex items-center justify-between w-64 p-3   bg-secundario-50 hover:bg-secundario-100 rounded-t-xl "
+                                    data-accordion-target="#accordion-collapse-body-1" aria-expanded="false"
+                                    aria-controls="accordion-collapse-body-1">
+                                    <span class="text-claro">Añadir nueva dirección</span>
+                                    <svg data-accordion-icon class="w-6 h-6 rotate-180 shrink-0 text-claro"
+                                        fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                </button>
+                            </h2>
+                            <div id="accordion-collapse-body-1" class="hidden w-full"
+                                aria-labelledby="accordion-collapse-heading-1">
+                                <div class="p-2 border border-secundario-50 rounded-b-xl">
+
+                                    <!--formulario de direccion-->
+                                    <div class="flex flex-col items-center">
+                                        <h3 class=" mb-3">Añadir nueva dirección:</h3>
+                                        <nav class="grid grid-cols-1 sm:grid-cols-2 gap-1 w-full">
+
+                                            <input type="text" id="nombre" name="nombre" placeholder="Nombre"
+                                                class=" border border-gray-300 rounded-lg px-2.5 h-8">
+
+
+                                            <input type="text" id="apellido" name="apellido" placeholder="Apellidos"
+                                                class=" border border-gray-300 rounded-lg px-2.5 h-8">
+
+
+                                            <input type="text" id="calle" name="calle" placeholder="Dirección"
+                                                class=" border border-gray-300 rounded-lg px-2.5 h-8"
+                                                autocomplete="street-address">
+
+
+
+                                            <input type="text" id="provincia" name="provincia" placeholder="Provincia"
+                                                class=" border border-gray-300 rounded-lg px-2.5 h-8"
+                                                autocomplete="address-level1">
+
+
+
+                                            <input type="number" id="postal" name="postal" placeholder="Codigo Postal"
+                                                class=" border border-gray-300 rounded-lg px-2.5 h-8">
+
+
+
+                                            <input type="text" id="ciudad" name="ciudad" placeholder="Ciudad"
+                                                class=" border border-gray-300 rounded-lg px-2.5 h-8"
+                                                autocomplete="address-level2">
+
+
                                         </nav>
-                                        <p>Tus datos de envio estan vacios. Por favor, actualízalos aqui abajo.</p>
+                                        <span id="mensajeErr" class="text-danger"></span>
                                     </div>
-                                @endif
-                            </span>
-                        </nav>
-                        <div class="flex justify-center xl:justify-start">
-                            <div id="accordion-collapse" data-accordion="collapse" class="mt-10">
-                                <h2 id="accordion-collapse-heading-1">
-                                    <button type="button"
-                                        class="flex items-center justify-between w-64 p-3   bg-secundario-50 hover:bg-secundario-100 rounded-t-xl "
-                                        data-accordion-target="#accordion-collapse-body-1" aria-expanded="false"
-                                        aria-controls="accordion-collapse-body-1">
-                                        <span class="text-claro">Añadir nueva dirección</span>
-                                        <svg data-accordion-icon class="w-6 h-6 rotate-180 shrink-0 text-claro"
-                                            fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd"
-                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                clip-rule="evenodd"></path>
-                                        </svg>
-                                    </button>
-                                </h2>
-                                <div id="accordion-collapse-body-1" class="hidden w-full"
-                                    aria-labelledby="accordion-collapse-heading-1">
-                                    <div class="p-2 border border-secundario-50 rounded-b-xl">
 
-                                        <!--formulario de direccion-->
-                                        <div class="flex flex-col items-center">
-                                            <h3 class=" mb-3">Añadir nueva dirección:</h3>
-                                            <nav class="grid grid-cols-1 sm:grid-cols-2 gap-1 w-full">
-
-                                                <input type="text" id="nombre" name="nombre" placeholder="Nombre"
-                                                    class=" border border-gray-300 rounded-lg px-2.5 h-8">
-
-
-                                                <input type="text" id="apellido" name="apellido" placeholder="Apellidos"
-                                                    class=" border border-gray-300 rounded-lg px-2.5 h-8">
-
-
-                                                <input type="text" id="calle" name="calle" placeholder="Dirección"
-                                                    class=" border border-gray-300 rounded-lg px-2.5 h-8"
-                                                    autocomplete="street-address">
-
-
-
-                                                <input type="text" id="provincia" name="provincia"
-                                                    placeholder="Provincia"
-                                                    class=" border border-gray-300 rounded-lg px-2.5 h-8"
-                                                    autocomplete="address-level1">
-
-
-
-                                                <input type="number" id="postal" name="postal"
-                                                    placeholder="Codigo Postal"
-                                                    class=" border border-gray-300 rounded-lg px-2.5 h-8">
-
-
-
-                                                <input type="text" id="ciudad" name="ciudad" placeholder="Ciudad"
-                                                    class=" border border-gray-300 rounded-lg px-2.5 h-8"
-                                                    autocomplete="address-level2">
-
-
-                                            </nav>
-                                            <span id="mensajeErr" class="text-danger"></span>
-                                        </div>
-
-                                        <div class="mt-3 flex justify-center">
-                                            <button
-                                                class="text-claro bg-secundario-50 hover:bg-secundario-100  font-semibold rounded-lg text-sm p-2"
-                                                onclick="updateDireccion()">Añadir
-                                                nueva direccion <i class="fa-solid fa-plus"></i>
-                                            </button>
-                                        </div>
+                                    <div class="mt-3 flex justify-center">
+                                        <button
+                                            class="text-claro bg-secundario-50 hover:bg-secundario-100  font-semibold rounded-lg text-sm p-2"
+                                            onclick="updateDireccion()">Añadir
+                                            nueva direccion <i class="fa-solid fa-plus"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
 
 
 
@@ -181,9 +181,9 @@
             </div>
 
             <!--pedidos antiguos-->
-            <div class="flex flex-col items-center p-3">
+            <div class="flex flex-col items-center p-3 col-span-2">
                 <h2 class="font-medium text-xl">Historial de pedidos:</h2>
-                @if ($pedidos)
+                @if (!$pedidos)
 
                     <div id="notificacion"
                         class="notificacion bg-primario text-coral-50 p-3 border border-coral-50 rounded-lg mt-7">
@@ -204,7 +204,7 @@
                 @else
                     <div class=" overflow-y-auto h-96 rounded-lg mt-7 mb-4 ">
                         <table class=" text-sm text-left bg-gray-50 rounded-lg">
-                            <thead class=" uppercase bg-primario text-claro">
+                            <thead class=" uppercase bg-primario text-claro" style="position: sticky; top: 0;">
                                 <tr>
                                     <th scope="col" class="px-2 py-3">
                                         ID
@@ -219,6 +219,14 @@
                                     <th scope="col" class="px-2 py-3">
                                         Pedido
                                     </th>
+                                    
+                                    <th scope="col" class="px-2 py-3">
+                                        Entrega <br> estimada
+                                    </th>
+
+                                    <th scope="col" class="px-1 py-3">
+                                        Enviado
+                                    </th>
 
                                 </tr>
                             </thead>
@@ -231,14 +239,33 @@
                                         <td class="px-1 py-2">
                                             {{ $pedido->precio }}€
                                         </td>
-                                        <td class="px-3 py-2">
-                                            {{ $pedido->nombreArchivo }}
+                                        <td class="px-1 py-2 ">
+                                            {{ preg_replace('/[\d-]+/', '', $pedido->nombreArchivo) }}
+
+
                                         </td>
 
-                                        <td class="px-1 py-2">
+                                        <td class="px-1 py-2 text-center">
                                             {{ \Carbon\Carbon::parse($pedido->created_at)->format('Y-m-d') }}
                                         </td>
 
+                                        <td class="px-1 py-2 text-center">
+                                            {{ \Carbon\Carbon::parse($pedido->updated_at)->addDays(2)->format('Y-m-d') }}
+                                        </td>
+
+                                        <td class="px-1 py-2">
+                                            @if ($pedido->hecho)
+                                                <span class="flex items-center justify-center gap-1">
+                                                    
+                                                    <i class="fa-solid fa-circle-check text-turquoise-400"></i>
+                                                </span>
+                                            @else
+                                                <span class="flex items-center justify-center gap-1">
+                                                    
+                                                    <i class="fa-solid fa-circle-xmark text-danger "></i>
+                                                </span>
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
