@@ -21,7 +21,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('pruebas', [IndexController::class,'pruebas'])->name('pruebas');
-Route::post('pago', [IndexController::class,'pago'])->name('pago');
 
 
 Route::get('/', IndexController::class)->name('index');
