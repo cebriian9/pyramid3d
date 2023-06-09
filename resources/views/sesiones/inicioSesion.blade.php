@@ -39,7 +39,7 @@
                 @enderror
             </div>
             <div>
-                <input type="checkbox" name="remember" class="rounded-xl"> Mantener sesion iniciada <br>
+                <input type="checkbox" name="remember" class="rounded-xl"> Mantener sesión iniciada <br>
                 <a href="{{route('registro')}}" class="text-info-100 hover:text-info-50">¿No tienes una cuenta?</a>
             </div>
 
