@@ -104,7 +104,7 @@
                     <li>
                         <!-- no para admins cambiar para produ-->
                         <a href="{{ route('impresion') }}" class="block py-2 pl-3 pr-4 text-white "
-                            aria-current="Impresion">Impresion</a>
+                            aria-current="Impresion">Impresión</a>
                     </li>
 
                     @auth
