@@ -142,7 +142,7 @@
                         <a href="{{ route('sobreNosotros') }}" class="mr-4 hover:underline md:mr-6 ">Sobre nosotros</a>
                     </li>
                     <li>
-                        <a href="{{ route('privacidad') }}" class="mr-4 hover:underline md:mr-6">Politicas de privacidad</a>
+                        <a href="{{ route('privacidad') }}" class="mr-4 hover:underline md:mr-6">Políticas de privacidad</a>
                     </li>
                     <li>
                         <a href="{{ route('faqs') }}" class="mr-4 hover:underline md:mr-6 ">FAQs</a>
