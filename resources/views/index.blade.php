@@ -88,7 +88,7 @@
                     <li>
                         <span class=" flex text-3xl font-semibold">
                             <h1 class="">1.</h1>
-                            <h1><i class="fa-solid fa-upload"></i> Mandanos tus diseños </h1>
+                            <h1><i class="fa-solid fa-upload"></i> Envíanos tus diseños </h1>
                         </span>
                         <div>
                             <span class="font-bold">¿Ya tienes tus diseños?</span> ¡¡Perfecto!! No dudes en enviarlo
@@ -98,10 +98,10 @@
                     <li>
                         <span class=" flex text-3xl font-semibold">
                             <h1 class="">2.</h1>
-                            <h1><i class="fa-solid fa-clock-rotate-left"></i> Espera y relajate </h1>
+                            <h1><i class="fa-solid fa-clock-rotate-left"></i> Espera y relájate </h1>
                         </span>
                         <div>
-                            Una vez lo hayas subido simplemente espera, relajate y despreocupate. <span
+                            Una vez lo hayas subido simplemente espera, relájate y despreocupate. <span
                                 class="font-bold">¡Nosotros nos encargamos!</span>
                         </div>
                     </li>
@@ -111,7 +111,7 @@
                             <h1><i class="fa-solid fa-truck"></i> Recibe tu pedido </h1>
                         </span>
                         <div>
-                            <span class="font-bold">¡Ya lo tenemos!</span> Espera unos dias a que llegue tu pedido
+                            <span class="font-bold">¡Ya lo tenemos!</span> Espera unos días a que llegue tu pedido
                         </div>
                     </li>
                 </ul>
@@ -160,8 +160,8 @@
             <div class="flex flex-col items-center bg-claro  rounded-lg  text-xl">
                 <i class="fa-solid fa-snowman text-5xl m-3"></i>
                 <div class="flex flex-col justify-between p-4 pt-0 ">
-                    <h5 class="mb-2 text-center font-bold tracking-tight text-gray-900 ">Decoracion</h5>
-                    <p class="mb-3   ">Necesitas una decoracion unica? Crea tus propios objetos de decoracion unicos.
+                    <h5 class="mb-2 text-center font-bold tracking-tight text-gray-900 ">Decoración</h5>
+                    <p class="mb-3   ">¿Necesitas una decoración única? Crea tus propios objetos de decoración personalizados.
                     </p>
                 </div>
             </div>
@@ -192,7 +192,7 @@
 
     <div class="container bg-claro rounded-xl md:w-3/4 lg:w-3/5 p-5 sm:p-10 pb-14 mt-10 mb-24">
         <nav class="text-center mb-10">
-            <h3 class=" font-semibold tracking-tight text-3xl ">¿No tienes aun un modelo 3D?</h3>
+            <h3 class=" font-semibold tracking-tight text-3xl ">¿Aún no tienes un modelo 3D?</h3>
         </nav>
 
         <div class="bg-claro  rounded-lg  text-xl">
@@ -201,7 +201,7 @@
 
                 <p class="mb-10 ">
                     Descubre increíbles <span class="font-bold">diseños 3D </span> y aprovecha su diversa colección para
-                    potenciar tus pedidos aqui. Encuentra la inspiración que necesitas y lleva tus proyectos al
+                    potenciar tus pedidos aquí. Encuentra la inspiración que necesitas y lleva tus proyectos al
                     siguiente nivel. ¿Listo para explorar? Haz clic aquí y accede a Thingiverse para descargar los
                     modelos perfectos para tus pedidos.
                 </p>
