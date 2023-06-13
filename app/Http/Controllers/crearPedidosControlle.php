@@ -135,7 +135,7 @@ class crearPedidosControlle extends Controller
         //recibimos pedido
         $pedidoUsuario = json_decode($request->pedido);
         
-        //creamos el pago
+        //creamos el pago con la API
         Stripe::setApiKey(config('services.stripe.secret'));
         $token = $request->stripeToken;
 
@@ -143,12 +143,12 @@ class crearPedidosControlle extends Controller
         $charge = Charge::create([
             'amount' => ($pedidoUsuario->precio*100),//*100 por que stripe lo pone en centimos 2=2 centimos
             'currency' => 'eur',
-            'description' => Auth::user()->id."-".Auth::user()->usuario.', Impresion de: '.$pedidoUsuario->nombreArchivo,//datos del usuario y que imprimio 
+            'description' => Auth::user()->id."-".Auth::user()->usuario.', Impresion de: '.$pedidoUsuario->nombreArchivo,//datos del usuario y lo que imprimio 
             'source' => $token,
             
         ]);
         
-        //creamos el pedido para la base de datos
+        //creamos el pedido y a la base de datos
         $pedido = new pedidos();
         $pedido->id_user = Auth::user()->id;
         $pedido->material = $pedidoUsuario->material;
@@ -159,8 +159,6 @@ class crearPedidosControlle extends Controller
         $pedido->nombreArchivo = $pedidoUsuario->nombreArchivo;
         $pedido->pathArchivo = $pedidoUsuario->pathArchivo;
         $pedido->hecho = 0;
-
-
 
         //a la base de datos y para casa
         $pedido->save();

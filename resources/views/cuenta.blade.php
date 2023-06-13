@@ -41,7 +41,7 @@
                     <nav><span class="font-semibold">Apellidos:</span> <span
                             id="MostrarApellido">{{ Auth::user()->apellido }}</span>
                     </nav>
-                    <nav><span class="font-semibold">Direccion:</span> <span
+                    <nav><span class="font-semibold">Direccin:</span> <span
                             id="direccion">{{ Auth::user()->direccion }}</span>
                     </nav>
                 </div>
