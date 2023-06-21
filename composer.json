@@ -54,6 +54,14 @@
         }
     },
     "config": {
+        "platform": {
+            "php": "^8.0.2",
+            "php-config": {
+                "max_execution_time": "60",
+                "upload_max_filesize": "100M",
+                "post_max_size": "100M"
+            }
+        },
         "optimize-autoloader": true,
         "preferred-install": "dist",
         "sort-packages": true,
